@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Биология олимпиадасы — Bilim Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE: сабырлы, ғылыми, шабыттандыратын — зертхана күнделігі
+   IDEA: микроскоп астындағы препарат шыны және зертхана журналы
+   PICTURE: айналатын 3D ДНҚ қос спиралі, жасуша, митоз, трансляция анимациясы
+   COLOUR and TYPE: терең жасыл-көк ұлпа фоны, изумруд, эозин қызғылт, медаль алтыны; Unbounded + Inter
+   LAYOUT: жабысқақ мәзір, бөлімдер толық енде, ішкі мазмұн 1240px */
+:root{--bg:#06211f;--bg2:#0a2e2b;--card:rgba(255,255,255,.055);--card2:rgba(255,255,255,.09);--line:rgba(180,255,230,.14);--ink:#e9fbf5;--mut:#a6c9c0;--em:#35d6a0;--cy:#5fd0ff;--pk:#ff6b8f;--gold:#f6c453;--ok:#2fd180;--bad:#ff5d6c;color-scheme:dark}
+:root[data-theme=light],:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16.5px/1.6 Inter,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:
+ radial-gradient(900px 600px at 85% -10%,rgba(53,214,160,.18),transparent 60%),
+ radial-gradient(700px 500px at -10% 30%,rgba(95,208,255,.12),transparent 60%),
+ radial-gradient(800px 600px at 60% 110%,rgba(255,107,143,.10),transparent 60%),
+ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='97' viewBox='0 0 56 97'%3E%3Cpath d='M28 0l28 16v32L28 64 0 48V16zM28 64v33' fill='none' stroke='%2335d6a0' stroke-opacity='.06'/%3E%3C/svg%3E"),var(--bg)}
+h1,h2,h3{font-family:Unbounded,Inter,sans-serif;line-height:1.12;text-wrap:balance;margin:0 0 .5em;font-weight:700}
+h1{font-size:clamp(30px,5vw,52px)}h2{font-size:clamp(24px,3.4vw,36px)}h3{font-size:19px;font-weight:500}
+p{margin:0 0 .8em}a{color:var(--cy)}
+.wrap{max-width:1240px;margin:0 auto}
+.band{padding:clamp(36px,5vw,72px) max(5vw,16px)}
+.lead{color:var(--mut);max-width:68ch;font-size:17px}
+/* header */
+header{position:sticky;top:0;z-index:50;background:rgba(6,33,31,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;padding:10px max(5vw,16px);max-width:1240px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex:none}
+.brand b{font-family:Unbounded,sans-serif;font-size:16px;display:block;line-height:1.1}
+.brand small{color:var(--mut);font-size:12.5px}
+nav.top{display:flex;gap:4px;overflow-x:auto;margin-left:auto;scrollbar-width:none}
+nav.top a{flex:none;color:var(--mut);text-decoration:none;padding:10px 12px;border-radius:10px;font-size:14.5px;font-weight:500}
+nav.top a:hover,nav.top a.on{color:var(--ink);background:var(--card2)}
+@media(max-width:860px){.hd{flex-wrap:wrap}nav.top{width:100%;margin:0}}
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:28px;align-items:center}
+.hero .fig{min-height:460px;border-radius:28px;background:radial-gradient(circle at 50% 50%,rgba(53,214,160,.16),transparent 65%);}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.chip{border:1px solid var(--line);background:var(--card);padding:7px 12px;border-radius:999px;font-size:14px;color:var(--mut)}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:22px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px}
+.stat b{font-family:Unbounded,sans-serif;font-size:24px;color:var(--em);display:block}
+.stat span{font-size:13px;color:var(--mut)}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.hero .fig{min-height:340px;order:-1}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 18px;border-radius:12px;border:1px solid var(--line);background:var(--card2);color:var(--ink);font:600 15px Inter,sans-serif;cursor:pointer;text-decoration:none}
+.btn:hover{background:rgba(255,255,255,.14)}
+.btn.pri{background:linear-gradient(135deg,var(--em),#1fa7a0);border:0;color:#03201a}
+.btn.sm{min-height:38px;padding:6px 12px;font-size:14px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.fig{position:relative;min-height:340px}.fig>svg,.fig>canvas{position:absolute;inset:0;width:100%;height:100%}
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:20px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;position:relative}
+.step i{font-style:normal;font-family:Unbounded,Inter,sans-serif;font-size:13px;color:var(--bg);background:var(--gold);border-radius:999px;padding:3px 10px}
+.step h3{margin:10px 0 6px;font-size:16px}.step p{font-size:14.5px;color:var(--mut);margin:0}
+@media(max-width:900px){.road{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.road{grid-template-columns:1fr}}
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0 16px}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{color:var(--em);font-weight:600;background:rgba(53,214,160,.06)}
+td.n,th.n{text-align:right;white-space:nowrap}
+.scroll{overflow-x:auto}
+@media(max-width:600px){table{font-size:13.5px}.stack thead{display:none}.stack tr{display:grid;padding-block:10px;border-bottom:1px solid var(--line)}.stack td{display:flow-root;border:0;padding:3px 0;padding-inline-start:8em;text-align:start}.stack td::before{content:attr(data-l);float:inline-start;width:7.5em;margin-inline-start:-8em;white-space:normal;color:var(--em);font-weight:600}.stack td:empty{display:none}}
+/* modules */
+.mods{display:grid;grid-template-columns:280px minmax(0,1fr);gap:22px;margin-top:18px}
+.mlist{display:flex;flex-direction:column;gap:6px;position:sticky;top:84px;align-self:start}
+.mlist button{display:flex;gap:10px;align-items:center;text-align:left;min-height:48px;padding:10px 12px;border-radius:14px;border:1px solid transparent;background:transparent;color:var(--mut);font:500 15px Inter,sans-serif;cursor:pointer}
+.mlist button .ico{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--card2);font:700 13px Unbounded,Inter,sans-serif;color:var(--em)}
+.mlist button.on{background:var(--card2);color:var(--ink);border-color:var(--line)}
+.mlist button .pr{margin-left:auto;font-size:12px;color:var(--gold)}
+@media(max-width:900px){.mods{grid-template-columns:1fr}.mlist{position:static;flex-direction:row;overflow-x:auto;padding-bottom:4px}.mlist button{flex:none}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(18px,3vw,32px)}
+.panel h2{font-size:clamp(22px,3vw,30px)}
+.sec{margin:22px 0}.sec h3{color:var(--cy)}
+.sec ul{margin:.2em 0 .8em;padding-left:1.2em}.sec li{margin:.25em 0}
+.box{border-radius:16px;padding:14px 16px;margin:14px 0;border:1px solid}
+.box b.t{display:block;font-family:Unbounded,Inter,sans-serif;font-size:14px;margin-bottom:6px}
+.box.mem{background:rgba(246,196,83,.08);border-color:rgba(246,196,83,.35)}.box.mem b.t{color:var(--gold)}
+.box.att{background:rgba(255,107,143,.08);border-color:rgba(255,107,143,.35)}.box.att b.t{color:var(--pk)}
+.box.oly{background:rgba(95,208,255,.08);border-color:rgba(95,208,255,.35)}.box.oly b.t{color:var(--cy)}
+.box ul{margin:0;padding-left:1.2em}
+.terms{display:flex;flex-wrap:wrap;gap:8px}
+.terms span{background:var(--card2);border-radius:10px;padding:6px 10px;font-size:14px}
+.terms span b{color:var(--em)}
+.mfoot{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+/* video players */
+.vids{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+@media(max-width:860px){.vids{grid-template-columns:1fr}}
+.vp{background:#031513;border:1px solid var(--line);border-radius:22px;overflow:hidden;display:flex;flex-direction:column}
+.vp .fig{min-height:320px;background:radial-gradient(circle at 50% 45%,#0d3a35,#031513 70%)}
+.vp .cap{padding:14px 16px 6px;min-height:92px}
+.vp .cap b{display:block;font-family:Unbounded,Inter,sans-serif;font-size:15px;color:var(--em);margin-bottom:4px}
+.vp .cap p{font-size:15px;color:var(--ink);margin:0}
+.ctrl{display:flex;align-items:center;gap:8px;padding:10px 14px 14px;flex-wrap:wrap}
+.ctrl .bar{flex:1 1 120px;height:8px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden;cursor:pointer}
+.ctrl .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--em),var(--cy))}
+.ctrl .ttl{font-size:13px;color:var(--mut);white-space:nowrap}
+.vp h3{padding:14px 16px 0;margin:0;font-size:17px}
+/* quiz */
+.qtools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+select,input[type=number],input[type=text]{font:16px Inter,sans-serif;min-height:44px;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:#0b2a27;color:var(--ink)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;margin:14px 0}
+.q .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.tag{font-size:12.5px;padding:3px 9px;border-radius:999px;background:var(--card2);color:var(--mut)}
+.tag.lv3{background:rgba(246,196,83,.15);color:var(--gold)}
+.q .stem{font-weight:600;font-size:16.5px;margin-bottom:10px}
+.opts{display:grid;gap:8px}
+.opt{display:flex;gap:10px;align-items:flex-start;text-align:left;min-height:46px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--ink);font:15.5px Inter,sans-serif;cursor:pointer;width:100%}
+.opt:hover:not(:disabled){background:var(--card2)}
+.opt .k{flex:none;width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--card2);font-weight:700;font-size:13px}
+.opt.sel{border-color:var(--cy);background:rgba(95,208,255,.1)}
+.opt.ok{border-color:var(--ok);background:rgba(47,209,128,.14)}
+.opt.no{border-color:var(--bad);background:rgba(255,93,108,.14)}
+.opt:disabled{cursor:default}
+.match{display:grid;gap:8px}
+.match label{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px;align-items:center}
+.match select.ok{border-color:var(--ok)}.match select.no{border-color:var(--bad)}
+.fb{margin-top:12px;border-radius:14px;padding:12px 14px;font-size:15px;display:none}
+.fb.ok{display:block;background:rgba(47,209,128,.1);border:1px solid rgba(47,209,128,.4)}
+.fb.no{display:block;background:rgba(255,93,108,.1);border:1px solid rgba(255,93,108,.4)}
+.fb b{display:block;margin-bottom:4px}
+.score{display:flex;gap:10px;flex-wrap:wrap}
+.score div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 14px;font-size:14px}
+.score b{font-family:Unbounded,Inter,sans-serif;color:var(--gold);font-size:18px;margin-right:4px}
+/* tools */
+.tools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:18px}
+@media(max-width:860px){.tools{grid-template-columns:1fr}}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:18px}
+.tool .row{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:8px 0}
+.tool label{display:flex;flex-direction:column;gap:4px;font-size:13.5px;color:var(--mut)}
+.tool label input,.tool label select{width:150px}
+.res{margin-top:10px;background:rgba(53,214,160,.08);border:1px solid rgba(53,214,160,.3);border-radius:14px;padding:12px 14px;font-size:15px}
+.res .big{font-family:Unbounded,Inter,sans-serif;font-size:clamp(20px,3vw,26px);color:var(--em);display:block;margin-bottom:4px}
+.ex{margin-top:12px}.ex summary{cursor:pointer;font-weight:600;color:var(--cy);min-height:40px;display:flex;align-items:center}
+.ex ol{padding-left:1.3em}.ex li{margin:.3em 0}
+/* tips */
+.tips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+@media(max-width:900px){.tips{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.tips{grid-template-columns:1fr}}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px}
+.tip h3{font-size:16px;color:var(--gold)}.tip p,.tip li{font-size:15px;color:var(--mut)}.tip ul{padding-left:1.1em;margin:0}
+/* errors */
+.errs{margin-top:14px}
+.err{background:var(--card);border:1px solid rgba(255,93,108,.3);border-radius:16px;padding:14px;margin:10px 0}
+.err .st{font-weight:600}.err .ca{color:var(--ok);margin-top:6px}.err .ex2{color:var(--mut);font-size:14.5px;margin-top:4px}
+.empty{color:var(--mut);padding:24px;text-align:center;border:1px dashed var(--line);border-radius:18px}
+footer{border-top:1px solid var(--line);color:var(--mut);font-size:14px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header><div class="hd">
+ <a class="brand" href="#home" aria-label="Bilim Hub орталығы">
+  <svg width="44" height="44" viewBox="0 0 64 64" aria-hidden="true">
+   <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#35d6a0"/><stop offset="1" stop-color="#5fd0ff"/></linearGradient></defs>
+   <path d="M32 3l25 14.5v29L32 61 7 46.5v-29z" fill="#0b3a35" stroke="url(#lg)" stroke-width="3"/>
+   <path d="M22 16c20 8 0 24 20 32M42 16c-20 8 0 24-20 32" fill="none" stroke="url(#lg)" stroke-width="3" stroke-linecap="round"/>
+   <path d="M25 22h14M23 32h18M25 42h14" stroke="#f6c453" stroke-width="2.4" stroke-linecap="round"/>
+  </svg>
+  <span><b>Bilim Hub</b><small>орталығы</small></span>
+ </a>
+ <nav class="top" id="topnav">
+  <a href="#plan">Жол картасы</a><a href="#theory">Теория</a><a href="#video">3D түсіндірме</a><a href="#practice">Есептер</a><a href="#quiz">Тапсырмалар</a><a href="#errors">Қатемен жұмыс</a><a href="#tips">Кеңестер</a>
+ </nav>
+</div></header>
+
+<main>
+<section class="band" id="home"><div class="wrap hero">
+ <div>
+  <h1>Биология олимпиадасына жүйелі дайындық</h1>
+  <p class="lead">Мектепішілік кезеңнен халықаралық олимпиадаға дейін: тоғыз модуль бойынша терең теория, 3D анимациялық түсіндірмелер, есеп шығару практикумы және жауабы бірден тексерілетін интерактивті тапсырмалар. Қате жауаптар өздігінен «Қатемен жұмыс» дәптеріне жиналады.</p>
+  <div class="chips"><span class="chip">7–11 сынып</span><span class="chip">Республикалық олимпиада</span><span class="chip">IBO деңгейіне бағдар</span><span class="chip">Қазақ тілінде</span></div>
+  <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn pri" href="#theory">Оқуды бастау</a><a class="btn" href="#quiz">Өзімді тексеру</a></div>
+  <div class="stats" id="stats"></div>
+ </div>
+ <div class="fig" id="heroFig"><canvas id="heroCv" aria-label="Айналып тұрған ДНҚ қос спиралі"></canvas></div>
+</div></section>
+
+<section class="band" id="plan" style="background:rgba(0,0,0,.16)"><div class="wrap">
+ <h2>Жол картасы: мектептен халықаралық медальға дейін</h2>
+ <p class="lead">Республикалық олимпиада төрт кезеңмен өтеді, әр келесі кезеңге алдыңғы кезеңнің жеңімпаздары мен жүлдегерлері жіберіледі. Қорытынды кезеңді «Дарын» республикалық ғылыми-практикалық орталығы өткізеді, ал үздіктер халықаралық олимпиадаға (IBO және т.б.) іріктеуге шақырылады.</p>
+ <div class="road">
+  <div class="step"><i>I</i><h3>Мектепішілік</h3><p>Негізгі ұғымдар, бір дұрыс жауапты тесттер. Диагностикалық тест арқылы әлсіз тақырыптарды анықтаңыз.</p></div>
+  <div class="step"><i>II</i><h3>Аудандық (қалалық)</h3><p>Бірнеше дұрыс жауапты тест, сәйкестендіру, молекулалық биология мен генетика есептері.</p></div>
+  <div class="step"><i>III</i><h3>Облыстық</h3><p>Күрделі есептер, ашық сұрақтар, сурет пен графикті талдау, практикалық тур.</p></div>
+  <div class="step"><i>IV</i><h3>Республикалық</h3><p>Мектеп бағдарламасынан тыс деңгей: биохимия, популяциялық генетика, физиология, эксперимент жоспарлау.</p></div>
+  <div class="step"><i>IBO</i><h3>Халықаралық</h3><p>Campbell деңгейіндегі теория, зертханалық дағдылар, деректерді статистикалық талдау.</p></div>
+ </div>
+ <div class="box oly" style="margin-top:18px"><b class="t">Ұпай қайда жасырынған?</b>Теориялық турдың шартты үлгісінде 100 ұпайдың 30-ы ғана бір дұрыс жауапты тестке тиесілі; қалғаны бірнеше дұрыс жауапты тест (20), сәйкестендіру (15), есептер (15) және ашық сұрақтар (20). Сондықтан жүлде алу үшін есеп пен талдау дағдысы шешуші. Республикалық және халықаралық олимпиада жүлдегерлеріне жоғары оқу орнына түсуде білім беру гранты бойынша артықшылықтар қарастырылады — ағымдағы жылдың ережесін мұғаліммен бірге тексеріңіз.</div>
+</div></section>
+
+<section class="band" id="theory"><div class="wrap">
+ <h2>Теориялық дайындық: 9 модуль</h2>
+ <p class="lead">Әр модульде тірек конспект, кестелер, «Есте сақта» және «Назар аудар» кеңестері, олимпиадалық тереңдету және негізгі терминдер бар. Модульді оқып болған соң, сол тақырыптың тапсырмаларын бірден орындаңыз.</p>
+ <div class="mods"><div class="mlist" id="mlist" role="tablist"></div><article class="panel" id="mpanel" aria-live="polite"></article></div>
+</div></section>
+
+<section class="band" id="video" style="background:rgba(0,0,0,.16)"><div class="wrap">
+ <h2>3D бейне-түсіндірмелер</h2>
+ <p class="lead">Күрделі үдерістер кезеңдеп көрсетіледі: «Ойнату» батырмасын басыңыз, қажет болса тоқтатып, алға-артқа ауыстырыңыз. Әр кадрдың астында түсіндірме мәтіні бар. Жасуша моделін тінтуірмен немесе саусақпен айналдыруға болады.</p>
+ <div class="vids" id="vids"></div>
+</div></section>
+
+<section class="band" id="practice"><div class="wrap">
+ <h2>Есеп шығару практикумы</h2>
+ <p class="lead">Есептің жалпы алгоритмі: шартын жазу → белгілеулер енгізу → заңдылықты немесе формуланы таңдау → есептеу → жауапты бірлігімен жазу → тексеру. Төмендегі калькуляторлар жауапты тексеруге арналған: алдымен өзіңіз шешіп, содан кейін салыстырыңыз.</p>
+ <div class="tools" id="tools"></div>
+</div></section>
+
+<section class="band" id="quiz" style="background:rgba(0,0,0,.16)"><div class="wrap">
+ <h2>Интерактивті тапсырмалар</h2>
+ <p class="lead">Жауапты таңдаған бойда тексеріледі: қате болса, дұрыс жауап жасыл түспен белгіленіп, түсіндірмесі шығады және сұрақ «Қатемен жұмыс» бөліміне қосылады. Деңгейлер: А — негізгі, В — орта, С — олимпиада.</p>
+ <div class="qtools">
+  <select id="qmod" aria-label="Модуль"></select>
+  <select id="qlv" aria-label="Деңгей"><option value="">Барлық деңгей</option><option value="1">А — негізгі</option><option value="2">В — орта</option><option value="3">С — олимпиада</option></select>
+  <button class="btn sm" id="qshuf">Араластыру</button>
+  <button class="btn sm" id="qreset">Қайта бастау</button>
+ </div>
+ <div class="score" id="qscore"></div>
+ <div id="qlist"></div>
+</div></section>
+
+<section class="band" id="errors"><div class="wrap">
+ <h2>Қатемен жұмыс</h2>
+ <p class="lead">Мұнда қате жауап берген сұрақтарыңыз дұрыс жауабымен және түсіндірмесімен сақталады. Тақырыпты қайта оқып, «Қателерді қайта шешу» батырмасын басыңыз: дұрыс шешілген сұрақ тізімнен өзі өшеді.</p>
+ <div class="qtools"><button class="btn pri sm" id="eRetry">Қателерді қайта шешу</button><button class="btn sm" id="eClear">Тізімді тазалау</button></div>
+ <div id="emap"></div>
+ <div class="errs" id="elist"></div>
+</div></section>
+
+<section class="band" id="tips" style="background:rgba(0,0,0,.16)"><div class="wrap">
+ <h2>Есте сақтау және олимпиада стратегиясы</h2>
+ <div class="tips" id="tipgrid"></div>
+</div></section>
+</main>
+
+<footer class="band"><div class="wrap">
+ <div class="brand"><svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 3l25 14.5v29L32 61 7 46.5v-29z" fill="#0b3a35" stroke="#35d6a0" stroke-width="3"/><path d="M22 16c20 8 0 24 20 32M42 16c-20 8 0 24-20 32" fill="none" stroke="#35d6a0" stroke-width="3"/></svg><span><b>Bilim Hub</b><small>орталығы</small></span></div>
+ <span>Биология пәні бойынша олимпиадаға дайындық. Оқу-әдістемелік құрал негізінде, 2026</span>
+</div></footer>
+<script>
+const MODS=[
+{id:'cell',ico:'1',name:'Жасуша биологиясы және биохимия',html:`
+<h2>Жасуша биологиясы және биохимия</h2>
+<p class="lead">Жасуша — тірінің құрылымдық, қызметтік және даму бірлігі. Жасуша теориясын Т. Шванн мен М. Шлейден (1838–1839) тұжырымдады, Р. Вирхов (1858) «әр жасуша жасушадан түзіледі» деп толықтырды.</p>
+<div class="sec"><h3>1. Жасушаның химиялық құрамы</h3>
+<ul><li><b>Макроэлементтер</b>: O, C, H, N — жасуша массасының шамамен 98%-ы; сонымен қатар P, S, K, Na, Ca, Mg, Cl, Fe.</li>
+<li><b>Микроэлементтер</b>: Zn (инсулин), Cu, I (тироксин), Co (B₁₂ витамині), Mn, Mo, F, Se.</li>
+<li><b>Су</b> — жасуша массасының 70–80%-ы: әмбебап еріткіш, жылу сыйымдылығы жоғары, молекулалары полярлы, сутектік байланыс түзеді.</li></ul>
+<div class="scroll"><table class="stack"><thead><tr><th>Зат тобы</th><th>Мономері / құрамы</th><th>Мысалдар</th><th>Негізгі қызметі</th></tr></thead><tbody>
+<tr><td>Моносахаридтер</td><td>C₃–C₇ қанттар</td><td>глюкоза, фруктоза, рибоза, дезоксирибоза</td><td>энергия көзі, нуклеотид құрамы</td></tr>
+<tr><td>Дисахаридтер</td><td>2 моносахарид</td><td>сахароза (глюкоза+фруктоза), лактоза (глюкоза+галактоза), мальтоза (2 глюкоза)</td><td>энергия, тасымал (өсімдікте — сахароза)</td></tr>
+<tr><td>Полисахаридтер</td><td>α- немесе β-глюкоза</td><td>крахмал, гликоген (α); целлюлоза (β); хитин</td><td>қор, құрылыс</td></tr>
+<tr><td>Липидтер</td><td>глицерин + май қышқылдары</td><td>майлар, фосфолипидтер, стероидтар</td><td>энергия (1 г → 38,9 кДж), мембрана, гормондар</td></tr>
+<tr><td>Нәруыздар</td><td>20 аминқышқылы</td><td>ферменттер, гемоглобин, коллаген, антиденелер</td><td>катализ, тасымал, құрылыс, қорғаныс, реттеу</td></tr>
+<tr><td>Нуклеин қышқылдары</td><td>нуклеотидтер</td><td>ДНҚ, РНҚ</td><td>тұқым қуалау ақпаратын сақтау және жүзеге асыру</td></tr></tbody></table></div>
+<p><b>Нәруыз құрылымының деңгейлері:</b> I — аминқышқылдарының реттілігі (пептидтік байланыс); II — α-спираль және β-қабат (сутектік байланыс); III — кеңістіктегі глобула (дисульфидтік көпірлер, иондық, гидрофобты, сутектік әрекеттесу); IV — бірнеше полипептидтің бірігуі (гемоглобин — 4 суббірлік). Денатурация — құрылымның бұзылуы (бірінші реттік құрылым сақталады); жағдай қайта қалпына келсе, ренатурация мүмкін.</p></div>
+<div class="sec"><h3>2. Прокариот және эукариот жасуша, органоидтар</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Органоид</th><th>Мембранасы</th><th>Қызметі</th></tr></thead><tbody>
+<tr><td>Ядро</td><td>қос мембрана, тесіктері бар</td><td>ДНҚ-ны сақтау, транскрипция; ядрошықта рибосома суббірліктері түзіледі</td></tr>
+<tr><td>Митохондрия</td><td>қос мембрана, кристалар</td><td>оттекті тыныс алу, АТФ синтезі; өз ДНҚ-сы мен 70S рибосомасы бар</td></tr>
+<tr><td>Хлоропласт</td><td>қос мембрана, тилакоидтар, грана</td><td>фотосинтез; өз ДНҚ-сы мен 70S рибосомасы бар</td></tr>
+<tr><td>Түйіршікті ЭПТ</td><td>бір мембрана</td><td>бетіндегі рибосомаларда нәруыз синтезі</td></tr>
+<tr><td>Тегіс ЭПТ</td><td>бір мембрана</td><td>липидтер мен көмірсулар синтезі, улы заттарды залалсыздандыру, Ca²⁺ қоры</td></tr>
+<tr><td>Гольджи аппараты</td><td>бір мембрана</td><td>заттарды жинақтау, түрлендіру, сұрыптау және жасушадан шығару; лизосома түзу</td></tr>
+<tr><td>Лизосома</td><td>бір мембрана</td><td>гидролиздік ферменттермен ішкі асқорыту, автолиз</td></tr>
+<tr><td>Рибосома</td><td>мембранасыз</td><td>нәруыз синтезі (эукариот цитоплазмасында 80S, прокариотта 70S)</td></tr>
+<tr><td>Жасуша орталығы</td><td>мембранасыз</td><td>центриольдер, бөліну ұршығын түзу (жоғары сатыдағы өсімдікте жоқ)</td></tr></tbody></table></div>
+<p><b>Мембрана арқылы тасымал:</b> пассивті — диффузия, жеңілдетілген диффузия (тасымалдаушы нәруыз, канал), осмос (су концентрациясы жоғары жақтан төмен жаққа); белсенді — АТФ жұмсалады: Na⁺/K⁺-сорғы бір АТФ есебінен 3 Na⁺ шығарып, 2 K⁺ енгізеді; эндоцитоз (фагоцитоз — қатты бөлшек, пиноцитоз — сұйықтық) және экзоцитоз.</p></div>
+<div class="sec"><h3>3. Ферменттер, зат және энергия алмасу</h3>
+<ul><li>Фермент — биологиялық катализатор, активтендіру энергиясын төмендетеді, реакцияда жұмсалмайды. Субстратпен <b>белсенді орталығы</b> арқылы байланысады: «кілт пен құлып» (Э. Фишер) және «индукцияланған сәйкестік» (Д. Кошланд) үлгілері.</li>
+<li>Белсенділікке температура, pH, субстрат пен фермент концентрациясы әсер етеді. Пепсиннің оптимумы pH ≈ 1,5–2; сілекей амилазасы ≈ 6,8–7; трипсин ≈ 8.</li>
+<li>Тежелу: бәсекелес (тежегіш белсенді орталыққа субстратпен таласады, субстрат көбейсе әсері азаяды) және бәсекелес емес (ферменттің басқа бөлігімен байланысады).</li></ul>
+<div class="scroll"><table class="stack"><thead><tr><th>Энергия алмасу кезеңі</th><th>Қайда жүреді</th><th>Нәтижесі (1 глюкозаға)</th></tr></thead><tbody>
+<tr><td>Дайындық</td><td>асқорыту жүйесі, лизосома</td><td>полимерлер мономерлерге ыдырайды, энергия жылу түрінде шашырайды</td></tr>
+<tr><td>Гликолиз (оттексіз)</td><td>цитоплазма</td><td>2 ПЖҚ (пирожүзім қышқылы), таза 2 АТФ, 2 НАДН</td></tr>
+<tr><td>Оттекті кезең</td><td>митохондрия: матрикс (Кребс циклі), кристалар (тыныс тізбегі)</td><td>6CO₂, 6H₂O, 36 АТФ (мектеп есебі); барлығы 38 АТФ</td></tr></tbody></table></div></div>
+<div class="sec"><h3>4. Жасуша циклі, митоз, мейоз</h3>
+<p>Интерфаза: G₁ (2n2c, өсу), S (ДНҚ репликациясы: 2n2c → 2n4c), G₂ (2n4c, бөлінуге дайындық). Митоздан кейін екі бірдей диплоидты жасуша түзіледі; мейоз нәтижесінде хромосома жиынтығы екі есе кеміген төрт гаплоидты жасуша түзіледі.</p>
+<div class="scroll"><table><thead><tr><th>Фаза</th><th class="n">Митоз</th><th class="n">Мейоз I</th><th class="n">Мейоз II</th></tr></thead><tbody>
+<tr><td>Профаза</td><td class="n">2n4c</td><td class="n">2n4c (конъюгация, кроссинговер)</td><td class="n">1n2c</td></tr>
+<tr><td>Метафаза</td><td class="n">2n4c</td><td class="n">2n4c (биваленттер экваторда)</td><td class="n">1n2c</td></tr>
+<tr><td>Анафаза</td><td class="n">4n4c</td><td class="n">2n4c (гомологтар ажырайды)</td><td class="n">2n2c</td></tr>
+<tr><td>Телофаза (әр жасушада)</td><td class="n">2n2c</td><td class="n">1n2c</td><td class="n">1n1c</td></tr></tbody></table></div></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Қос мембраналы үшеу: <b>ядро, митохондрия, хлоропласт</b> — «Я-М-Х».</li><li>Митоз фазалары: <b>П-М-А-Т</b> — «Профессор Мұғалім Ауылға Тартты».</li><li>n — хромосома жиынтығы, c — ДНҚ мөлшері. S кезеңінде тек c екі еселенеді, n өзгермейді.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Митоз анафазасында хроматидтер ажырағандықтан, жасушада уақытша 4n4c болады; оны 2n4c деп жазу — ең жиі қате.</li><li>Целлюлоза мен крахмалдың мономері бірдей (глюкоза), айырмашылығы — α және β изомерлерінде.</li><li>Бактерияда митохондрия жоқ, бірақ тыныс алу ферменттері плазмалық мембранада орналасады.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Эндосимбиоз теориясының дәлелдері: митохондрия мен хлоропластың сақина тәрізді ДНҚ-сы, 70S рибосомасы, қос мембранасы және бинарлы бөлінуі. Қазіргі деректер бойынша бір глюкозадан шын мәнінде ≈30–32 АТФ түзіледі; мектеп есептерінде 38 АТФ қолданылады — есеп шартында қай мән берілгенін қараңыз.</div>
+<div class="terms"><span><b>Осмос</b> — судың жартылай өткізгіш мембрана арқылы өтуі</span><span><b>Плазмолиз</b> — гипертониялық ерітіндіде протопластың қабырғадан ажырауы</span><span><b>Кроссинговер</b> — гомологтық хромосомалардың бөліктермен алмасуы</span><span><b>Бивалент</b> — конъюгацияланған гомологтар жұбы</span></div>`},
+
+{id:'mol',ico:'2',name:'Молекулалық биология',html:`
+<h2>Молекулалық биология</h2>
+<p class="lead">ДНҚ құрылысын 1953 жылы Дж. Уотсон мен Ф. Крик ұсынды (Р. Франклин мен М. Уилкинстің рентгенқұрылымдық деректері негізінде).</p>
+<div class="sec"><h3>1. ДНҚ құрылысы мен репликациясы</h3>
+<ul><li>Нуклеотид = азотты негіз + дезоксирибоза + фосфор қышқылының қалдығы. Пуриндер: аденин (А), гуанин (Г); пиримидиндер: тимин (Т), цитозин (Ц), РНҚ-да тиминнің орнына урацил (У).</li>
+<li>Комплементарлық: А=Т (2 сутектік байланыс), Г≡Ц (3 сутектік байланыс). Тізбектер <b>антипараллель</b>: 5′→3′ және 3′→5′.</li>
+<li><b>Чаргафф ережесі</b>: А = Т, Г = Ц, А + Г = Т + Ц (пуриндер саны пиримидиндер санына тең).</li>
+<li>Есептерге қажет тұрақтылар: көрші нуклеотидтер арақашықтығы 0,34 нм; бір орамда 10 жұп (3,4 нм); нуклеотидтің орташа массасы 345 Да; аминқышқылының орташа массасы 110 Да.</li>
+<li>Репликация <b>жартылай консервативті</b> (Мезельсон–Сталь, 1958). Ферменттер: хеликаза (тізбектерді ажыратады), топоизомераза (кернеуді жояды), праймаза (РНҚ-праймер), ДНҚ-полимераза (тек 5′→3′ бағытта ұзартады), лигаза (Оказаки фрагменттерін жалғайды). Жетекші тізбек үздіксіз, қалушы тізбек фрагменттермен синтезделеді.</li></ul></div>
+<div class="sec"><h3>2. Транскрипция, трансляция, генетикалық код</h3>
+<p>Транскрипция: РНҚ-полимераза ДНҚ-ның матрицалық тізбегін 3′→5′ бағытта оқып, иРНҚ-ны 5′→3′ бағытта түзеді. Эукариоттарда процессинг жүреді: 5′-кэп, 3′-поли(А) құйрығы, <b>сплайсинг</b> — интрондар кесіліп, экзондар жалғанады.</p>
+<p>Трансляция рибосомада өтеді: инициация (АУГ старт-кодоны, метионин), элонгация (тРНҚ антикодоны иРНҚ кодонына комплементар қосылады, пептидтік байланыс түзіледі), терминация (стоп-кодондар: УАА, УАГ, УГА). Бір иРНҚ-да бірнеше рибосома — полисома.</p>
+<div class="scroll"><table class="stack"><thead><tr><th>Код қасиеті</th><th>Мағынасы</th></tr></thead><tbody>
+<tr><td>Триплеттілік</td><td>бір аминқышқылын үш нуклеотид (кодон) анықтайды; 4³ = 64 кодон</td></tr>
+<tr><td>Біржақтылық (спецификалық)</td><td>бір кодон тек бір аминқышқылын кодтайды</td></tr>
+<tr><td>Артықтық (азғындалу)</td><td>бір аминқышқылын бірнеше кодон кодтай алады (61 мағыналы кодон — 20 аминқышқылы)</td></tr>
+<tr><td>Әмбебаптық</td><td>барлық тірі ағзаларда бірдей (митохондрияда шағын ерекшеліктер бар)</td></tr>
+<tr><td>Үзіліссіздік, бір-бірін жаппау</td><td>кодондар арасында «тыныс белгісі» жоқ, оқу бір рамкамен жүреді</td></tr></tbody></table></div></div>
+<div class="sec"><h3>3. Гендік инженерия негіздері</h3>
+<ul><li>Рестриктазалар ДНҚ-ны белгілі палиндромды учаскелерден кеседі («жабысқақ ұштар»), лигаза жалғайды, вектор (плазмида, вирус) генді жасушаға жеткізеді.</li>
+<li>ПТР (полимеразалық тізбекті реакция): денатурация ≈94–95 °C → праймерлердің қосылуы ≈50–65 °C → синтез ≈72 °C (термотөзімді Taq-полимераза). Әр циклде ДНҚ саны екі есе артады: n циклден кейін 2ⁿ.</li>
+<li>Қолданылуы: адам инсулинін бактерияда алу, трансгенді өсімдіктер, ДНҚ-диагностика, CRISPR-Cas9 арқылы гендерді нақты түзету.</li></ul></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>«Пуриндер — Ауыр Гиря» (А, Г — екі сақиналы).</li><li>Стоп-кодондар: <b>УАА, УАГ, УГА</b> — «У-А-А, У-А-Г, У-Г-А: Уақыт Аяқталды».</li><li>Ген ұзындығы = жұптар саны × 0,34 нм; бір аминқышқылы = 3 нуклеотид = 1 кодон.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>ДНҚ ұзындығын есептегенде <b>жұптар</b> санын алу керек, жалпы нуклеотид санын емес.</li><li>Ген → иРНҚ → нәруыз есептерінде стоп-кодон аминқышқылын кодтамайды.</li><li>Антикодон кодонға комплементар: иРНҚ кодоны АУГ болса, тРНҚ антикодоны УАЦ.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Мутациялар: үнсіз (синонимдік) — аминқышқылы өзгермейді; миссенс — басқа аминқышқылы; нонсенс — стоп-кодон пайда болады; оқу рамкасының жылжуы — бір нуклеотидтің түсіп қалуы не қосылуы. Орақ тәрізді жасушалы анемияда иРНҚ кодоны ГАГ → ГУГ болып, глутамин қышқылы валинмен алмасады.</div>
+<div class="terms"><span><b>Экзон</b> — кодтайтын бөлік</span><span><b>Интрон</b> — кесілетін бөлік</span><span><b>Праймер</b> — синтезді бастайтын қысқа тізбек</span><span><b>Плазмида</b> — бактерияның сақина ДНҚ-сы</span></div>`},
+
+{id:'gen',ico:'3',name:'Генетика және селекция',html:`
+<h2>Генетика және селекция негіздері</h2>
+<p class="lead">Генетика — тұқым қуалаушылық пен өзгергіштік туралы ғылым. Негізін Г. Мендель (1865) қалады; хромосомалық теорияны Т. Морган (1910–1915) дамытты.</p>
+<div class="sec"><h3>1. Мендель заңдары</h3>
+<ul><li><b>I заң — бірінші ұрпақ будандарының біркелкілігі</b>: AA × aa → F₁ барлығы Aa.</li>
+<li><b>II заң — ажырау</b>: Aa × Aa → фенотип бойынша 3 : 1, генотип бойынша 1 AA : 2 Aa : 1 aa.</li>
+<li><b>III заң — белгілердің тәуелсіз тұқым қуалауы</b>: AaBb × AaBb → 9 : 3 : 3 : 1 (гендер әртүрлі хромосомада болса).</li>
+<li>Талдаушы будандастыру — доминантты фенотиптіні рецессивті гомозиготамен (aa) будандастыру: 1 : 1 болса — гетерозигота, ажырау болмаса — гомозигота.</li>
+<li>Гамета тазалығы: әр гаметаға аллельдердің біреуі ғана түседі. n гетерозиготалы жұп болса, гамета түрі 2ⁿ, F₂ фенотиптік кластары 2ⁿ, генотиптер 3ⁿ.</li></ul></div>
+<div class="sec"><h3>2. Аллельдік және аллельдік емес гендердің әрекеттесуі</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Әрекеттесу</th><th>F₂ ажырауы</th><th>Мысал</th></tr></thead><tbody>
+<tr><td>Толымсыз доминанттылық</td><td>1 : 2 : 1</td><td>түнгі сұлу гүлінің түсі (қызыл, қызғылт, ақ)</td></tr>
+<tr><td>Кодоминанттылық</td><td>екі аллель де көрінеді</td><td>AB (IV) қан тобы: Iᴬ Iᴮ</td></tr>
+<tr><td>Комплементарлық</td><td>9 : 7; 9 : 6 : 1; 9 : 3 : 3 : 1</td><td>хош иісті бұршақ гүлінің түсі; асқабақ жемісінің пішіні</td></tr>
+<tr><td>Доминантты эпистаз</td><td>12 : 3 : 1; 13 : 3</td><td>асқабақ жемісінің түсі; тауық қауырсынының түсі</td></tr>
+<tr><td>Рецессивті эпистаз</td><td>9 : 3 : 4</td><td>тышқан жүнінің түсі</td></tr>
+<tr><td>Полимерия (кумулятивті)</td><td>1 : 4 : 6 : 4 : 1</td><td>адам терісінің түсі, бидай дәнінің түсі</td></tr></tbody></table></div></div>
+<div class="sec"><h3>3. Хромосомалық теория, жыныспен тіркес тұқым қуалау</h3>
+<ul><li>Бір хромосомадағы гендер тіркесу тобын құрайды, олардың саны гаплоидты жиынтыққа тең (адамда 23, әйелде 23, ер адамда 24 тіркесу тобы).</li>
+<li>Кроссинговер жиілігі (%) = рекомбинанттар саны / барлық ұрпақ × 100. 1% = 1 морганида (сМ). Гендер арасы алыстаған сайын кроссинговер жиі жүреді (бірақ 50%-дан аспайды).</li>
+<li>Х-хромосомамен тіркес рецессивті белгілер: гемофилия, дальтонизм. Ер адам гемизиготалы (XʰY) — бір рецессивті аллель жеткілікті. Тасымалдаушы әйел — XᴴXʰ.</li></ul></div>
+<div class="sec"><h3>4. Өзгергіштік, мутациялар, адам генетикасы, селекция</h3>
+<ul><li>Модификациялық өзгергіштік тұқым қуаламайды, шегін <b>реакция нормасы</b> анықтайды. Мутациялық — тұқым қуалайды: гендік, хромосомалық (делеция, дупликация, инверсия, транслокация), геномдық (полиплоидия, анеуплоидия).</li>
+<li>Даун синдромы — 47, +21; Шерешевский–Тернер — 45, X0; Клайнфельтер — 47, XXY.</li>
+<li>Шежіре: аутосомды-доминантты — әр ұрпақта, екі жынста бірдей; аутосомды-рецессивті — ұрпақ аттап, сау ата-анадан туады; Х-тіркес рецессивті — көбіне ер балаларда, тасымалдаушы анадан.</li>
+<li>Селекция: Н.И. Вавилов — мәдени өсімдіктердің шығу орталықтары және тұқым қуалаушылық өзгергіштіктің гомологтық қатарлар заңы. Әдістері: сұрыптау (жаппай, жекелей), будандастыру, гетерозис, инбридинг, полиплоидия, алыс будандастыру, мутагенез.</li></ul></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Харди–Вайнберг: <b>p + q = 1</b> және <b>p² + 2pq + q² = 1</b>. Рецессивті фенотип жиілігі — q².</li><li>Ажырау 9:7, 9:6:1, 9:3:4, 12:3:1, 13:3, 15:1 — барлығы 16 бөліктің түрленуі: «16 көрсең — дигибрид».</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Харди–Вайнберг есебінде q-ді рецессивті фенотип жиілігінен түбір алып табамыз: q = √q². Тікелей q = q² деп алу қате.</li><li>Гетерозигота тасымалдаушылар саны — 2pq, ол p² емес.</li><li>Жыныспен тіркес есепте ұл баланың Х-хромосомасы әрқашан анадан келеді.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Үш нүктелі талдаушы будандастыруда ең сирек класс — қос кроссинговер, ең көп класс — ата-аналық. Ортаңғы генді қос кроссоверлерді ата-аналық класпен салыстырып табамыз. Интерференция коэффициенті: I = 1 − (байқалған қос кроссинговер / күтілген).</div>
+<div class="terms"><span><b>Аллель</b> — геннің балама түрі</span><span><b>Локус</b> — геннің хромосомадағы орны</span><span><b>Пенетранттылық</b> — генотиптің фенотипте көріну жиілігі</span><span><b>Плейотропия</b> — бір геннің бірнеше белгіге әсері</span></div>`},
+
+{id:'bot',ico:'4',name:'Ботаника',html:`
+<h2>Ботаника</h2>
+<div class="sec"><h3>1. Өсімдік ұлпалары мен мүшелері</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Ұлпа</th><th>Түрлері</th><th>Ерекшелігі</th></tr></thead><tbody>
+<tr><td>Түзуші (меристема)</td><td>төбе, бүйір (камбий), аралық</td><td>жасушалары ұдайы бөлінеді; камбий сабақтың жуандап өсуін қамтамасыз етеді</td></tr>
+<tr><td>Жабын</td><td>эпидерма, тоз (пробка)</td><td>эпидермада лептесіктер (устьица) бар; тоздың жасушалары өлі</td></tr>
+<tr><td>Негізгі</td><td>ассимиляциялық, қор жинаушы, ауа сақтаушы</td><td>жапырақтың бағаналы және борпылдақ ұлпасы фотосинтез жасайды</td></tr>
+<tr><td>Механикалық</td><td>колленхима, склеренхима</td><td>колленхима — тірі жасушалар; склеренхима (талшықтар) — өлі жасушалар</td></tr>
+<tr><td>Өткізгіш</td><td>ксилема, флоэма</td><td>ксилема (түтіктер — өлі) су мен минералды тұздарды жоғары өткізеді; флоэма (елеуікті түтіктер — тірі, ядросыз, серік жасушалары бар) органикалық заттарды өткізеді</td></tr></tbody></table></div></div>
+<div class="sec"><h3>2. Фотосинтез, тыныс алу, су алмасу</h3>
+<p>Жалпы теңдеуі: <b>6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂</b> (жарық, хлорофилл).</p>
+<ul><li><b>Жарық фазасы</b> — тилакоид мембраналарында: судың фотолизі (2H₂O → 4H⁺ + 4e⁻ + O₂), АТФ және НАДФ·Н түзілуі. Бөлінетін оттек судан шығады.</li>
+<li><b>Қараңғы фаза (Кальвин циклі)</b> — стромада: CO₂-ні рибулоза-1,5-бисфосфат байланыстырады (фермент — РуБисКО), АТФ пен НАДФ·Н есебінен глюкоза түзіледі. Бір глюкозаға 6 CO₂, 18 АТФ, 12 НАДФ·Н жұмсалады.</li>
+<li>C₄-өсімдіктер (жүгері, қант құрағы) мен CAM-өсімдіктер (кактус) — ыстық, құрғақ жағдайға бейімделу.</li>
+<li>Су тамыр түктері арқылы сіңіп, тамыр қысымы мен транспирация күші арқылы ксилемамен көтеріледі. Транспирация лептесіктер арқылы реттеледі.</li></ul></div>
+<div class="sec"><h3>3. Көбею және систематика</h3>
+<p><b>Қосарлы ұрықтану</b> (С.Г. Навашин, 1898) — жабық тұқымдыларға тән: бір спермий жұмыртқа жасушамен қосылып зигота (2n) түзеді, екіншісі орталық жасушамен (2n) қосылып эндосперм (3n) түзеді.</p>
+<div class="scroll"><table class="stack"><thead><tr><th>Бөлім</th><th>Басым ұрпақ</th><th>Белгілері</th></tr></thead><tbody>
+<tr><td>Балдырлар</td><td>әртүрлі</td><td>ұлпалары жоқ, таллом; ризоидтар</td></tr>
+<tr><td>Мүктер</td><td>гаметофит (n)</td><td>тамыры жоқ, ризоидтар; ұрықтануға су қажет</td></tr>
+<tr><td>Плаундар, қырықбуындар, папоротниктер</td><td>спорофит (2n)</td><td>нағыз тамыр, өткізгіш ұлпа; спорамен көбейеді</td></tr>
+<tr><td>Ашық тұқымдылар</td><td>спорофит</td><td>тұқым бүрде ашық жатады, эндосперм гаплоидты (n)</td></tr>
+<tr><td>Жабық тұқымдылар</td><td>спорофит</td><td>гүл, жеміс, қосарлы ұрықтану, эндосперм триплоидты (3n)</td></tr></tbody></table></div>
+<div class="scroll"><table class="stack"><thead><tr><th>Белгі</th><th>Қосжарнақтылар</th><th>Даражарнақтылар</th></tr></thead><tbody>
+<tr><td>Тұқымжарнағы</td><td>2</td><td>1</td></tr><tr><td>Тамыр жүйесі</td><td>кіндік тамыр</td><td>шашақ тамыр</td></tr><tr><td>Жүйкеленуі</td><td>торлы</td><td>доғалы, параллель</td></tr><tr><td>Камбий</td><td>бар</td><td>жоқ</td></tr><tr><td>Гүл мүшелері</td><td>4–5 еселі</td><td>3 еселі</td></tr></tbody></table></div>
+<p><b>Саңырауқұлақтар</b> — гетеротрофтар, жасуша қабырғасында хитин, қор заты — гликоген. <b>Қыналар</b> — саңырауқұлақ пен балдырдың (немесе цианобактерияның) симбиозы, ауа тазалығының индикаторы.</p></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>«Ксилема — Көтеріледі» (су жоғары), «Флоэма — Фабрикадан» (органика жапырақтан төмен).</li><li>Мүкте гаметофит, қалғандарында спорофит басым.</li><li>Эндосперм: ашық тұқымдыда n, жабық тұқымдыда 3n.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Фотосинтездегі оттек CO₂-ден емес, судан бөлінеді.</li><li>Қараңғы фаза «түнде» жүрмейді — оған жарық тікелей қажет емес, бірақ жарық фазасының өнімдері қажет.</li><li>Саңырауқұлақтар өсімдікке де, жануарға да жатпайды — жеке патшалық.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Гүл формуласы: * — актиноморфты, ↑ — зигоморфты; Са — тостағанша, Co — күлте, A — аталық, G — аналық. Мысалы, айқышгүлділер: *Ca₄Co₄A₂₊₄G₍₂₎; бұршақтұқымдастар: ↑Ca₍₅₎Co₁₊₂₊₍₂₎A₍₉₎₊₁G₁. Фотодыныс — РуБисКО-ның оттекпен әрекеттесуі; C₄-жолы оны азайтады.</div>`},
+
+{id:'zoo',ico:'5',name:'Зоология',html:`
+<h2>Зоология</h2>
+<div class="sec"><h3>1. Қарапайымдар және омыртқасыздар</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Тип</th><th>Негізгі белгілері</th><th>Өкілдері</th></tr></thead><tbody>
+<tr><td>Қарапайымдар</td><td>бір жасушалы; жалған аяқ, талшық немесе кірпікшемен қозғалады</td><td>амеба, жасыл эвглена (миксотроф), кебісше инфузория (2 ядро, конъюгация), безгек плазмодийі</td></tr>
+<tr><td>Ішекқуыстылар</td><td>екі қабатты, радиалды симметрия, атпа жасушалар, торлы жүйке жүйесі</td><td>гидра, медуза, маржан полиптері</td></tr>
+<tr><td>Жалпақ құрттар</td><td>үш қабатты, екі жақты симметрия, дене қуысы жоқ, ішегі тұйық</td><td>ақ планария, бауыр сорғышы, сиыр цепені</td></tr>
+<tr><td>Жұмыр құрттар</td><td>алғашқы дене қуысы, ауыз және аналь тесігі, дара жынысты</td><td>адам аскаридасы, острица</td></tr>
+<tr><td>Буылтық құрттар</td><td>екінші дене қуысы (целом), тұйық қан айналым, құрсақ жүйке тізбегі, метанефридийлер</td><td>жауын құрты, сүлік, нереида</td></tr>
+<tr><td>Ұлулар</td><td>мантия, бақалшақ, радула, ашық қан айналым</td><td>тоспа ұлуы, айқұлақ, сегізаяқ</td></tr>
+<tr><td>Буынаяқтылар</td><td>хитинді сыртқы қаңқа, буынды аяқтар, ашық қан айналым, түлеу</td><td>шаянтәрізділер, өрмекшітәрізділер, бунақденелілер</td></tr></tbody></table></div>
+<p>Бунақденелілер: дене — бас, көкірек, құрсақ; 3 жұп аяқ, көбіне 2 жұп қанат, трахеямен тыныс алады, зәр шығару — мальпиги түтікшелері. Өрмекшітәрізділер: 4 жұп аяқ, мұртшалары жоқ, өкпе қапшықтары мен трахеялар. Шаянтәрізділер: 2 жұп мұртша, желбезек.</p>
+<p>Даму түрлері: толымсыз түрлену (жұмыртқа → дернәсіл → ересек: шегірткелер, тарақандар, қандалалар) және толық түрлену (жұмыртқа → дернәсіл → қуыршақ → ересек: көбелектер, қоңыздар, қосқанаттылар, жарғаққанаттылар).</p></div>
+<div class="sec"><h3>2. Хордалылар кластары</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Класс</th><th>Жүрегі</th><th>Қан айналым шеңбері</th><th>Дене температурасы</th><th>Тынысы</th></tr></thead><tbody>
+<tr><td>Балықтар</td><td>2 камералы</td><td>1, жүректе веналық қан</td><td>тұрақсыз</td><td>желбезек</td></tr>
+<tr><td>Қосмекенділер</td><td>3 камералы</td><td>2, қарыншада аралас қан</td><td>тұрақсыз</td><td>өкпе, тері</td></tr>
+<tr><td>Бауырымен жорғалаушылар</td><td>3 камералы, қарыншада толымсыз перде (қолтырауында 4 камералы)</td><td>2</td><td>тұрақсыз</td><td>өкпе</td></tr>
+<tr><td>Құстар</td><td>4 камералы</td><td>2, оң қолқа доғасы</td><td>тұрақты</td><td>өкпе + ауа қапшықтары (қос тыныс)</td></tr>
+<tr><td>Сүтқоректілер</td><td>4 камералы</td><td>2, сол қолқа доғасы</td><td>тұрақты</td><td>альвеолалы өкпе, көкет</td></tr></tbody></table></div>
+<p>Хордалылардың үш басты белгісі: хорда, арқа жағындағы түтікше жүйке жүйесі, жұтқыншақтағы желбезек саңылаулары. Төменгі хордалылар: ланцетник (хорда өмір бойы сақталады).</p></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Жүрек камералары: Балық 2 → Қосмекенді 3 → Жорғалаушы 3+ → Құс 4 → Сүтқоректі 4.</li><li>Қолқа доғасы: «Құс — Оң, Сүтқоректі — Сол».</li><li>Аяқ саны: бунақденелі 6, өрмекші 8, шаян 10 (өзен шаянында 5 жұп жүру аяғы).</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Кит пен дельфин — сүтқоректі, жарқанат — сүтқоректі, пингвин — құс.</li><li>Өрмекші бунақденелі емес — өрмекшітәрізділер класы.</li><li>Ашық қан айналым ұлулар мен буынаяқтыларда; буылтық құрттарда — тұйық.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Мүшелер жүйесінің эволюциясы: зәр шығару — протонефридий (жалпақ құрттар) → метанефридий (буылтықтар) → мальпиги түтікшелері (бунақденелілер) → бүйрек (омыртқалылар: алдыңғы → алғашқы → соңғы бүйрек). Ұрықтың алғашқы ауызы бастауыштарда (протостомия: құрттар, ұлулар, буынаяқтылар) ауызға, екінші ауыздыларда (инелітерілер, хордалылар) аналь тесігіне айналады.</div>`},
+
+{id:'hum',ico:'6',name:'Адам анатомиясы мен физиологиясы',html:`
+<h2>Адам анатомиясы мен физиологиясы</h2>
+<div class="sec"><h3>1. Қан және қан айналым</h3>
+<div class="scroll"><table class="stack"><thead><tr><th>Қан жасушасы</th><th>Саны (1 мкл)</th><th>Ерекшелігі</th></tr></thead><tbody>
+<tr><td>Эритроциттер</td><td class="n">4,5–5 млн</td><td>ядросыз, қос ойыс, гемоглобин, 120 күн өмір сүреді, көкбауырда бұзылады</td></tr>
+<tr><td>Лейкоциттер</td><td class="n">4–9 мың</td><td>ядролы, фагоцитоз (нейтрофил, моноцит), иммунитет (лимфоциттер)</td></tr>
+<tr><td>Тромбоциттер</td><td class="n">180–320 мың</td><td>қанның ұюы: протромбин → тромбин, фибриноген → фибрин (Ca²⁺, K витамині)</td></tr></tbody></table></div>
+<ul><li>Жүрек циклі ≈ 0,8 с: жүрекшелер систоласы 0,1 с, қарыншалар систоласы 0,3 с, жалпы диастола 0,4 с.</li>
+<li>Үлкен шеңбер: сол қарынша → қолқа → мүшелер → қуыс веналар → оң жүрекше. Кіші шеңбер: оң қарынша → өкпе артериясы (веналық қан!) → өкпе → өкпе веналары (артериялық қан!) → сол жүрекше.</li>
+<li>Жармалы қақпақшалар: сол жақта — қос жармалы, оң жақта — үш жармалы; қолқа мен өкпе артериясында — жарты ай тәрізді.</li>
+<li>Жүректің минуттық көлемі = систолалық көлем × жүрек соғу жиілігі (мыс., 70 мл × 70 = 4,9 л/мин).</li></ul>
+<div class="scroll"><table class="stack"><thead><tr><th>Қан тобы</th><th>Эритроцит антигені</th><th>Плазмадағы антидене</th><th>Генотип</th></tr></thead><tbody>
+<tr><td>I (0)</td><td>жоқ</td><td>α, β</td><td>i i (I⁰I⁰)</td></tr><tr><td>II (A)</td><td>A</td><td>β</td><td>IᴬIᴬ, Iᴬi</td></tr><tr><td>III (B)</td><td>B</td><td>α</td><td>IᴮIᴮ, Iᴮi</td></tr><tr><td>IV (AB)</td><td>A, B</td><td>жоқ</td><td>IᴬIᴮ</td></tr></tbody></table></div>
+<p>Резус-қақтығыс Rh⁻ ана Rh⁺ ұрықты көтергенде (көбіне екінші жүктілікте) пайда болады.</p></div>
+<div class="sec"><h3>2. Тыныс алу, асқорыту, зәр шығару</h3>
+<ul><li><b>Өкпенің тіршілік сыйымдылығы</b> (ӨТС) = тыныстық көлем (≈500 мл) + дем алудың қосымша көлемі (≈1500–2500 мл) + дем шығарудың қосымша көлемі (≈1000–1500 мл); ересекте ≈3,5–4,5 л. Қалдық көлем (≈1–1,5 л) ӨТС-ке кірмейді.</li>
+<li>Тыныс орталығы — сопақша мида; негізгі реттеуші — қандағы CO₂ концентрациясының артуы.</li>
+<li>Асқорыту: ауыз қуысы — амилаза, мальтаза (крахмал); асқазан — пепсин, тұз қышқылы (нәруыз); ұлтабар — ұйқы безі сөлі (трипсин, липаза, амилаза) және өт; аш ішек бүрлері — сіңіру (амин қышқылдары мен глюкоза қанға, майлар лимфаға).</li>
+<li>Нефрон: шумақ капсуласында сүзілу → бастапқы несеп (≈150–180 л/тәулік); өзекшелерде кері сіңіру → соңғы несеп (≈1,5 л/тәулік). Антидиуретикалық гормон (вазопрессин) суды кері сіңіруді арттырады.</li></ul></div>
+<div class="sec"><h3>3. Жүйке, сезім мүшелері, эндокрин жүйесі, иммунитет</h3>
+<ul><li>Рефлекс доғасы: рецептор → сезімтал нейрон → аралық нейрон (ОЖЖ) → қозғалтқыш нейрон → жұмыс мүшесі. Синапста медиатор (ацетилхолин, норадреналин) бөлінеді.</li>
+<li>Вегетативті жүйке жүйесі: симпатикалық — жүрек соғуын жиілетеді, қарашықты кеңейтеді, асқорытуды тежейді; парасимпатикалық — керісінше.</li>
+<li>Көз торы: таяқшалар (ымырт көру, родопсин, А витамині) және сауытшалар (түсті көру, сары дақта көп). Жақыннан көргіштікте (миопия) кескін тордың алдында түзіледі — ойыс линза; алыстан көргіштікте — дөңес линза.</li></ul>
+<div class="scroll"><table class="stack"><thead><tr><th>Без / гормон</th><th>Әсері</th><th>Жетіспеуі / артуы</th></tr></thead><tbody>
+<tr><td>Ұйқы безі: инсулин (β-жасушалар)</td><td>қандағы глюкозаны төмендетеді</td><td>жетіспеуі — қант диабеті</td></tr>
+<tr><td>Ұйқы безі: глюкагон (α-жасушалар)</td><td>глюкозаны жоғарылатады</td><td>—</td></tr>
+<tr><td>Қалқанша без: тироксин (йод)</td><td>зат алмасуды күшейтеді</td><td>балада жетіспеуі — кретинизм, ересекте — микседема; артуы — Базедов ауруы</td></tr>
+<tr><td>Гипофиз: өсу гормоны</td><td>өсуді реттейді</td><td>балада артуы — алыптық, ересекте — акромегалия; жетіспеуі — ергежейлілік</td></tr>
+<tr><td>Бүйрек үсті безі: адреналин</td><td>стресске жауап, глюкозаны көтереді</td><td>—</td></tr></tbody></table></div>
+<p>Иммунитет: В-лимфоциттер антидене түзеді (гуморальдық), Т-лимфоциттер жасушалық иммунитетті қамтамасыз етеді. Вакцина — жасанды белсенді иммунитет; емдік сарысу (дайын антидене) — жасанды енжар иммунитет.</p></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Артерия — жүректен шығатын тамыр, вена — жүрекке келетін тамыр (ішіндегі қанның түріне қарамай!).</li><li>I топ — әмбебап донор, IV топ — әмбебап реципиент.</li><li>Өт — фермент емес, майларды эмульгирлейді.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Өкпе артериясында веналық, өкпе венасында артериялық қан ағады.</li><li>Тыныс алуды O₂ жетіспеуі емес, негізінен CO₂ артуы қоздырады.</li><li>Вакцина емдемейді — алдын алады; сарысу дайын антидене береді.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Әрекет потенциалы: тыныштық потенциалы ≈ −70 мВ; деполяризация — Na⁺ каналдары ашылып, Na⁺ жасушаға енеді; реполяризация — K⁺ шығады; Na⁺/K⁺-сорғы иондық градиентті қалпына келтіреді. Гемоглобиннің оттекпен диссоциация қисығы S тәрізді; CO₂ артқанда, pH төмендегенде және температура көтерілгенде оңға ығысады (Бор эффектісі).</div>`},
+
+{id:'evo',ico:'7',name:'Эволюциялық ілім',html:`
+<h2>Эволюциялық ілім</h2>
+<div class="sec"><h3>1. Эволюцияның дәлелдері мен қозғаушы күштері</h3>
+<ul><li>Ч. Дарвин («Түрлердің шығу тегі», 1859): тұқым қуалайтын өзгергіштік, тіршілік үшін күрес, табиғи сұрыпталу — эволюцияның қозғаушы күштері.</li>
+<li>Эволюцияның қазіргі синтетикалық теориясы: эволюцияның элементар бірлігі — <b>популяция</b>; элементар факторлары — мутациялық үдеріс, популяция толқындары, оқшаулану, гендер дрейфі, табиғи сұрыпталу (тек сұрыпталу ғана бағытталған фактор).</li>
+<li>Сұрыпталу түрлері: қозғаушы (бағыттаушы) — орта өзгергенде; тұрақтандырушы — орта тұрақты болғанда орташа белгі сақталады; ажыратушы (дизруптивті) — шеткі формалар тиімді.</li></ul>
+<div class="scroll"><table class="stack"><thead><tr><th>Дәлел</th><th>Мысал</th></tr></thead><tbody>
+<tr><td>Гомологтық мүшелер (дивергенция)</td><td>адамның қолы, құстың қанаты, киттің ескегі</td></tr>
+<tr><td>Аналогтық мүшелер (конвергенция)</td><td>құс пен көбелек қанаты, балық пен дельфиннің дене пішіні</td></tr>
+<tr><td>Рудименттер</td><td>құрт тәрізді өсінді, құйымшақ, үшінші қабақ қатпары</td></tr>
+<tr><td>Атавизмдер</td><td>құйрықты адам, көп емшектілік, қалың түк</td></tr>
+<tr><td>Өтпелі формалар</td><td>археоптерикс (жорғалаушы мен құс), саусаққанатты балықтар, жануартісті кесірткелер</td></tr>
+<tr><td>Эмбриологиялық</td><td>Бэр ұқсастық заңы, Геккель–Мюллердің биогенетикалық заңы</td></tr></tbody></table></div></div>
+<div class="sec"><h3>2. Түр, түр түзілу, макроэволюция</h3>
+<ul><li>Түр критерийлері: морфологиялық, физиологиялық, генетикалық (кариотип), биохимиялық, экологиялық, географиялық. Бір критерий жеткіліксіз — түр критерийлердің жиынтығымен анықталады.</li>
+<li>Түр түзілу: аллопатриялық (географиялық оқшаулану) және симпатриялық (экологиялық, полиплоидия арқылы).</li>
+<li>Биологиялық прогрестің жолдары (А.Н. Северцов): <b>ароморфоз</b> — ұйымдасу деңгейін көтеретін ірі өзгеріс (жылықандылық, 4 камералы жүрек, гүл); <b>идиоадаптация</b> — жеке бейімделу (қорғаныш реңк, тұмсық пішіні); <b>жалпы дегенерация</b> — жеңілдеу (паразиттер).</li></ul></div>
+<div class="sec"><h3>3. Адамның шығу тегі</h3>
+<p>Негізгі кезеңдер: австралопитектер → епті адам (Homo habilis) — алғашқы еңбек құралдары → тік жүретін адам (Homo erectus) — отты пайдалану → неандертальдықтар → саналы адам (Homo sapiens). Антропогенез факторлары: биологиялық (тұқым қуалайтын өзгергіштік, сұрыпталу) және әлеуметтік (еңбек, сөйлеу, қоғамдық өмір). Нәсілдер бір түрге жатады — тұқымы өнімді ұрпақ береді.</p></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Гомолог — «шығу тегі бір», аналог — «қызметі бір».</li><li>Ароморфоз — ұйымдасу деңгейі көтеріледі, идиоадаптация — деңгей сол қалпы, бірақ жаңа ортаға бейімделу, дегенерация — құрылыс жеңілдейді.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Рудимент — барлық адамда бар, атавизм — жекелеген адамда кездеседі.</li><li>Эволюция бірлігі — жеке ағза емес, популяция.</li><li>Ламарк бойынша жүре пайда болған белгілер тұқым қуалайды — қазіргі ғылым мұны жоққа шығарады.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Кладограмма талдауы: ортақ туынды белгі (синапоморфия) топтарды біріктіреді; монофилетикалық топ ортақ атаны және оның барлық ұрпақтарын қамтиды. Гендер дрейфі шағын популяцияда күшті: «бөтелке мойны» және «негізін қалаушы» әсерлері.</div>`},
+
+{id:'eco',ico:'8',name:'Экология',html:`
+<h2>Экология</h2>
+<div class="sec"><h3>1. Экологиялық факторлар және популяция</h3>
+<ul><li>Факторлар: абиотикалық (температура, жарық, ылғал, тұздылық), биотикалық (жыртқыштық, паразитизм, бәсекелестік, симбиоз), антропогендік.</li>
+<li>Ю. Либихтің минимум заңы: ағзаның төзімділігін ең жетіспейтін фактор шектейді. В. Шелфордтың төзімділік заңы: фактордың жетіспеуі де, артық болуы да шектеуші болады.</li>
+<li>Популяция көрсеткіштері: саны, тығыздығы, туу және өлу деңгейі, жас және жыныс құрамы. Өсу қисықтары: экспоненциалды (J тәрізді) және логистикалық (S тәрізді, орта сыйымдылығы K-ға жеткенде тоқтайды).</li>
+<li>r-стратегтер — көп ұрпақ, қамқорлық аз (бунақденелілер); K-стратегтер — аз ұрпақ, ұзақ қамқорлық (піл, адам).</li></ul></div>
+<div class="sec"><h3>2. Экожүйе және қоректік байланыстар</h3>
+<ul><li>Құрамы: продуценттер (автотрофтар), консументтер (I, II, III реттік), редуценттер (бактериялар, саңырауқұлақтар).</li>
+<li>Қоректік тізбек: жайылымдық (өсімдіктен басталады) және детриттік (өлі органикадан басталады).</li>
+<li>Р. Линдеманның <b>10% ережесі</b>: келесі трофикалық деңгейге алдыңғы деңгей энергиясының шамамен 10%-ы ғана өтеді.</li>
+<li>Экологиялық пирамидалар: сан, биомасса (мұхитта төңкерілген болуы мүмкін — фитопланктон тез көбейеді), энергия (ешқашан төңкерілмейді).</li>
+<li>Сукцессия — экожүйенің біртіндеп ауысуы: алғашқы (жалаңаш тау жынысында) және екінші реттік (өрттен, кесуден кейін); соңы — тұрақты климакс қауымдастық.</li></ul></div>
+<div class="sec"><h3>3. Биосфера және адамның әсері</h3>
+<ul><li>Биосфера туралы ілімді В.И. Вернадский жасады: тірі зат, биогенді, кос заттар; ноосфера — саналы басқарылатын биосфера.</li>
+<li>Азот айналымы: азотфиксация (түйнек бактериялар, цианобактериялар) → аммонификация → нитрификация (NH₃ → NO₂⁻ → NO₃⁻) → денитрификация (N₂ атмосфераға қайтады).</li>
+<li>Ғаламдық мәселелер: парниктік әсер (CO₂, CH₄), озон қабатының жұқаруы (фреондар), қышқыл жаңбырлар (SO₂, NOₓ), шөлейттену. Қазақстанда — Арал теңізінің тартылуы, Семей полигонының салдары, Балқаш көлінің мәселесі. Сирек түрлер Қызыл кітапқа енгізіледі; ерекше қорғалатын аумақтар — қорықтар (Ақсу-Жабағылы — Орталық Азиядағы ең көне қорық, 1926), ұлттық парктер.</li></ul></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Энергия пирамидасы — «ешқашан төңкерілмейді».</li><li>10% ережесі: 10 000 → 1 000 → 100 → 10 кДж.</li><li>Продуцент — «Пісіреді», Консумент — «Жейді», Редуцент — «Ыдыратады».</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Консументтің реттік нөмірі трофикалық деңгейден бір кем: II трофикалық деңгей = I реттік консумент.</li><li>Энергия айналмайды — экожүйе арқылы бір бағытта ағады, ал заттар айналымға түседі.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Популяция санын «белгілеу — қайта ұстау» әдісімен бағалау (Линкольн–Петерсен индексі): N = (M × C) / R, мұнда M — бірінші рет белгіленгендер, C — екінші рет ұсталғандар, R — олардың ішіндегі белгілілер. Таза бастапқы өнімділік = жалпы өнімділік − продуценттердің тыныс алуға жұмсаған энергиясы.</div>`},
+
+{id:'mic',ico:'9',name:'Микробиология, вирусология, биотехнология',html:`
+<h2>Микробиология, вирусология және биотехнология</h2>
+<div class="sec"><h3>1. Микробиологияның дамуы және бактериялар</h3>
+<ul><li>А. ван Левенгук алғаш микроағзаларды көрді; Л. Пастер ашу үдерісінің микробтық табиғатын дәлелдеп, пастерлеуді ұсынды, вакциналар жасады; Р. Кох туберкулез таяқшасын ашты, таза дақыл алу әдістерін енгізді.</li>
+<li>Бактерия құрылысы: нуклеоид (сақина ДНҚ), плазмидалар, 70S рибосомалар, муреинді жасуша қабырғасы, кейде капсула мен талшықтар. Ядро мен мембраналы органоидтар жоқ.</li>
+<li>Пішіндері: кокктар (шар), бациллалар (таяқша), вибриондар (үтір), спириллалар (иірім). Грам бойынша бояу: грамоң (қалың муреин) және грамтеріс.</li>
+<li>Қолайлы жағдайда ≈20 минут сайын екіге бөлінеді. Қолайсыз жағдайда спора түзеді — бұл көбею емес, тіршілікті сақтау тәсілі.</li></ul></div>
+<div class="sec"><h3>2. Вирустар</h3>
+<ul><li>Д.И. Ивановский (1892) темекі теңбіл ауруының қоздырғышын зерттеп, вирустарды ашты.</li>
+<li>Құрылысы: нуклеин қышқылы (тек ДНҚ немесе тек РНҚ) + нәруыз қабық (капсид); кейбірінде липидті сыртқы қабықша. Жасушадан тыс тіршілік белгілерін көрсетпейді — облигатты жасушаішілік паразиттер.</li>
+<li>Бактериофагтар бактерияларды зақымдайды. Ретровирустар (АИТВ) кері транскриптаза арқылы РНҚ-дан ДНҚ түзеді.</li>
+<li>Антибиотиктер бактерияларға әсер етеді, вирустарға әсер етпейді.</li></ul></div>
+<div class="sec"><h3>3. Биотехнология</h3>
+<ul><li>Дәстүрлі: ашыту — сүт қышқылды (айран, қымыз, шұбат), спиртті (ашытқылар), нан пісіру.</li>
+<li>Гендік инженерия: адам инсулинін, өсу гормонын, интерферонды бактерияда алу; трансгенді ағзалар.</li>
+<li>Жасуша инженериясы: өсімдік ұлпасын өсіру (микроклондау), жасуша будандастыру, гибридома арқылы моноклонды антиденелер алу; клондау — Долли қойы (1996).</li></ul></div>
+<div class="box mem"><b class="t">Есте сақта</b><ul><li>Вирус = нуклеин қышқылы + капсид. Жасуша жоқ, зат алмасу жоқ.</li><li>Пастер — пастерлеу мен вакцина, Кох — таза дақыл, Ивановский — вирус.</li></ul></div>
+<div class="box att"><b class="t">Назар аудар — типтік қателер</b><ul><li>Бактерия спорасы көбею органы емес.</li><li>Цианобактериялар — прокариоттар, балдыр емес.</li><li>Вирустың құрамында ДНҚ мен РНҚ бір мезгілде болмайды.</li></ul></div>
+<div class="box oly"><b class="t">Олимпиада деңгейі</b>Бактерия өсуінің кезеңдері: лаг-фаза → логарифмдік (экспоненциалды) фаза → стационарлық фаза → өлу фазасы. n ұрпақтан кейінгі жасуша саны N = N₀ × 2ⁿ. Бактериофагтың литикалық циклі жасушаны ерітеді, лизогендік циклде фаг ДНҚ-сы бактерия хромосомасына кіріктіріледі (профаг).</div>`}
+];
+const QS=[
+// cell
+{m:'cell',lv:1,t:'s',q:'Нәруыздың екінші реттік құрылымын ұстап тұратын байланыс:',o:['пептидтік','дисульфидтік','сутектік','фосфодиэфирлік'],a:2,ex:'α-спираль мен β-қабат пептидтік топтар арасындағы сутектік байланыстармен тұрақталады. Пептидтік байланыс — бірінші реттік, дисульфидтік — үшінші реттік құрылымға тән.'},
+{m:'cell',lv:1,t:'s',q:'Синтезделген нәруызды жинақтап, жасушадан шығаруға дайындайтын органоид:',o:['лизосома','Гольджи аппараты','центриоль','вакуоль'],a:1,ex:'Гольджи аппараты заттарды жинақтайды, түрлендіреді, сұрыптайды және экзоцитоз арқылы шығарады; лизосомалар да осында түзіледі.'},
+{m:'cell',lv:1,t:'s',q:'Жасуша циклінің ең ұзақ кезеңі:',o:['профаза','метафаза','интерфаза','телофаза'],a:2,ex:'Интерфаза жасуша циклінің 90%-ға дейінгі уақытын алады: G₁, S, G₂ кезеңдері.'},
+{m:'cell',lv:2,t:'m',q:'Жоғары сатыдағы өсімдік жасушасында бар, ал жануар жасушасында жоқ құрылымдарды таңдаңыз:',o:['целлюлозалы жасуша қабырғасы','хлоропласт','центриоль','ірі орталық вакуоль','гликоген түйіршіктері'],a:[0,1,3],ex:'Өсімдік жасушасына целлюлоза қабырғасы, пластидтер және ірі вакуоль тән. Центриоль мен гликоген — жануар жасушасының белгілері.'},
+{m:'cell',lv:2,t:'m',q:'Интерфазада жүретін үдерістер:',o:['ДНҚ репликациясы','нәруыз синтезі','хромосомалардың полюстерге ажырауы','органоидтардың екі еселенуі','ядро қабықшасының ыдырауы'],a:[0,1,3],ex:'Репликация (S), нәруыз синтезі мен органоидтардың көбеюі интерфазада өтеді. Хромосомалардың ажырауы — анафаза, ядро қабықшасының ыдырауы — профаза.'},
+{m:'cell',lv:2,t:'mt',q:'Тасымалдау түрін мысалымен сәйкестендіріңіз:',l:['диффузия','осмос','белсенді тасымал','фагоцитоз'],o:['Na⁺/K⁺-сорғының жұмысы','лейкоциттің бактерияны қармап жұтуы','оттектің альвеоладан қанға өтуі','судың тамыр түгінің жасушасына енуі'],a:[2,3,0,1],ex:'O₂ концентрация градиенті бойымен диффузияланады; су — осмоспен; сорғы АТФ жұмсайды; лейкоцит бөлшекті фагоцитозбен жұтады.'},
+{m:'cell',lv:3,t:'s',q:'Адамның соматикалық жасушасында 46 хромосома бар. Митоз анафазасында жасушада қанша хромосома болады?',o:['23','46','92','69'],a:2,ex:'Анафазада әр хромосоманың хроматидтері ажырап, жеке хромосомаға айналады: 4n4c = 92 хромосома, 92 ДНҚ молекуласы.'},
+{m:'cell',lv:3,t:'n',q:'Мейоз I профазасындағы адам жасушасында қанша ДНҚ молекуласы (хроматид) бар?',a:92,u:'',ex:'Мейоз I профазасы — 2n4c: 46 хромосома, әрқайсысы 2 хроматидтен, барлығы 92 ДНҚ молекуласы.'},
+{m:'cell',lv:3,t:'s',q:'Бәсекелес тежегіш қосылғанда субстрат концентрациясын көп арттырса не байқалады?',o:['реакция жылдамдығы мүлде тоқтайды','тежегіштің әсері азаяды, жылдамдық максимумға жақындайды','фермент денатурацияға ұшырайды','белсенді орталық біржола бұзылады'],a:1,ex:'Бәсекелес тежегіш белсенді орталыққа субстратпен таласады. Субстрат көп болса, ол тежегішті ығыстырады: Vmax өзгермейді, Km артады.'},
+// mol
+{m:'mol',lv:1,t:'s',q:'Гуанин мен цитозин арасында неше сутектік байланыс түзіледі?',o:['1','2','3','4'],a:2,ex:'Г≡Ц — 3 сутектік байланыс, А=Т — 2. Сондықтан ГЦ-ге бай ДНҚ жоғарырақ температурада денатурацияланады.'},
+{m:'mol',lv:1,t:'s',q:'Стоп-кодон болып табылмайтын кодон:',o:['УАА','УАГ','АУГ','УГА'],a:2,ex:'АУГ — старт-кодон, метионинді кодтайды. УАА, УАГ, УГА — терминация кодондары.'},
+{m:'mol',lv:2,t:'n',q:'ДНҚ молекуласында аденин 32%. Гуанин неше пайыз?',a:18,u:'%',ex:'Чаргафф ережесі: А = Т = 32%, демек Г + Ц = 100 − 64 = 36%, Г = Ц = 18%.'},
+{m:'mol',lv:2,t:'n',q:'1 500 нуклеотид жұбынан тұратын ДНҚ бөлігінің ұзындығы неше нм?',a:510,u:'нм',ex:'Ұзындық = жұптар саны × 0,34 нм = 1 500 × 0,34 = 510 нм.'},
+{m:'mol',lv:2,t:'s',q:'ДНҚ матрицасының үзіндісі 3′–ТАЦ–ЦГТ–5′. Түзілетін иРНҚ:',o:['5′–АУГ–ГЦА–3′','5′–АТГ–ГЦА–3′','5′–УАЦ–ЦГУ–3′','5′–ТАЦ–ЦГТ–3′'],a:0,ex:'иРНҚ матрицаға комплементар және антипараллель: Т→А, А→У, Ц→Г, Г→Ц. РНҚ-да тимин жоқ, урацил болады.'},
+{m:'mol',lv:2,t:'m',q:'Генетикалық кодтың қасиеттерін таңдаңыз:',o:['триплеттілік','артықтық (азғындалу)','әмбебаптық','кодондардың бір-бірін жабуы','бір кодон бірнеше аминқышқылын кодтайды'],a:[0,1,2],ex:'Код триплетті, артық, біржақты, әмбебап, бір-бірін жаппайды. Бір кодон тек бір аминқышқылын кодтайды (біржақтылық).'},
+{m:'mol',lv:3,t:'n',q:'Нәруыз 200 аминқышқылынан тұрады. Оны кодтайтын геннің (стоп-кодонды ескермей, интронсыз) ұзындығы неше нм?',a:204,u:'нм',ex:'200 аминқышқылы → 600 нуклеотид иРНҚ → геннің 600 жұбы × 0,34 = 204 нм.'},
+{m:'mol',lv:3,t:'n',q:'ПТР-дің 5 циклінен кейін бір ДНҚ молекуласынан неше молекула түзіледі?',a:32,u:'',ex:'Әр цикл ДНҚ санын екі еселейді: 2⁵ = 32.'},
+{m:'mol',lv:3,t:'s',q:'иРНҚ кодоны ГАГ → ГУГ болып өзгерді, глутамин қышқылы валинмен алмасты. Бұл мутацияның түрі:',o:['үнсіз мутация','миссенс-мутация','нонсенс-мутация','оқу рамкасының жылжуы'],a:1,ex:'Бір нуклеотидтің алмасуы басқа аминқышқылына әкелді — миссенс-мутация. Бұл орақ тәрізді жасушалы анемияның себебі.'},
+{m:'mol',lv:3,t:'mt',q:'Ферментті репликациядағы қызметімен сәйкестендіріңіз:',l:['хеликаза','праймаза','ДНҚ-полимераза','лигаза'],o:['Оказаки фрагменттерін жалғайды','РНҚ-праймер синтездейді','сутектік байланыстарды үзіп, тізбектерді ажыратады','жаңа тізбекті 5′→3′ бағытта ұзартады'],a:[2,1,3,0],ex:'Хеликаза ашады, праймаза бастама береді, полимераза ұзартады, лигаза фрагменттерді біріктіреді.'},
+// gen
+{m:'gen',lv:1,t:'s',q:'Aa × Aa будандастырудан фенотип бойынша ажырау (толық доминанттылықта):',o:['1 : 1','1 : 2 : 1','3 : 1','9 : 3 : 3 : 1'],a:2,ex:'Генотиптер 1 AA : 2 Aa : 1 aa, фенотип бойынша доминанттылар 3/4, рецессивтілер 1/4 → 3 : 1.'},
+{m:'gen',lv:1,t:'s',q:'Талдаушы будандастыруда зерттелетін дарақ қандай дарақпен будандастырылады?',o:['доминантты гомозиготамен','гетерозиготамен','рецессивті гомозиготамен','кез келген даралармен'],a:2,ex:'Рецессивті гомозигота (aa) тек рецессивті аллельді гамета береді, сондықтан ұрпақтағы фенотиптер зерттелетін дарақтың гаметаларын тікелей көрсетеді.'},
+{m:'gen',lv:2,t:'n',q:'AaBbCc генотипті дарақ неше түрлі гамета түзеді (гендер тәуелсіз)?',a:8,u:'',ex:'Гамета түрлері = 2ⁿ, мұнда n — гетерозиготалы жұптар саны: 2³ = 8.'},
+{m:'gen',lv:2,t:'s',q:'Анасы II (Iᴬi), әкесі III (Iᴮi) қан топты. Балаларында қандай қан топтары болуы мүмкін?',o:['тек II және III','тек IV','I, II, III, IV','тек I және IV'],a:2,ex:'Гаметалар: Iᴬ, i × Iᴮ, i → IᴬIᴮ (IV), Iᴬi (II), Iᴮi (III), ii (I) — әрқайсысы 1/4.'},
+{m:'gen',lv:2,t:'s',q:'Анасы — гемофилия генінің тасымалдаушысы (XᴴXʰ), әкесі сау (XᴴY). Ұлдарының гемофилиямен ауыру ықтималдығы:',o:['0%','25%','50%','100%'],a:2,ex:'Ұлдар Х-хромосоманы анадан алады: Xᴴ немесе Xʰ тең ықтималдықпен. Барлық ұлдардың 50%-ы ауырады (барлық балалардың 25%-ы).'},
+{m:'gen',lv:2,t:'mt',q:'F₂-дегі ажырауды гендердің әрекеттесу түрімен сәйкестендіріңіз:',l:['9 : 7','12 : 3 : 1','9 : 3 : 4','1 : 2 : 1'],o:['рецессивті эпистаз','толымсыз доминанттылық','комплементарлық','доминантты эпистаз'],a:[2,3,0,1],ex:'9:7 — комплементарлық; 12:3:1 — доминантты эпистаз; 9:3:4 — рецессивті эпистаз; 1:2:1 фенотип бойынша — толымсыз доминанттылық.'},
+{m:'gen',lv:3,t:'n',q:'Популяцияда рецессивті белгі (aa) 16%. Харди–Вайнберг бойынша гетерозиготалар неше пайыз?',a:48,u:'%',ex:'q² = 0,16 → q = 0,4; p = 0,6; 2pq = 2 × 0,6 × 0,4 = 0,48 = 48%.'},
+{m:'gen',lv:3,t:'n',q:'Талдаушы будандастыруда 1000 ұрпақтың 170-і рекомбинант болды. Гендер арақашықтығы неше морганида (сМ)?',a:17,u:'сМ',ex:'Кроссинговер жиілігі = 170 / 1000 × 100% = 17% = 17 сМ.'},
+{m:'gen',lv:3,t:'s',q:'Шежіреде белгі ұрпақ аттап, сау ата-анадан туған қыз балада да, ұл балада да бірдей жиілікпен кездеседі. Тұқым қуалау түрі:',o:['аутосомды-доминантты','аутосомды-рецессивті','Х-тіркес доминантты','Y-тіркес'],a:1,ex:'Сау ата-анадан ауру бала тууы — рецессивтіліктің белгісі; екі жынста бірдей жиілік — аутосомды тұқым қуалау.'},
+{m:'gen',lv:3,t:'s',q:'Клайнфельтер синдромының кариотипі:',o:['45, X0','47, XXY','47, +21','47, XYY'],a:1,ex:'Клайнфельтер — 47, XXY (ер адамда қосымша Х). 45, X0 — Шерешевский–Тернер, 47, +21 — Даун синдромы.'},
+// bot
+{m:'bot',lv:1,t:'s',q:'Фотосинтез кезінде бөлінетін оттектің көзі:',o:['көмірқышқыл газы','глюкоза','су','АТФ'],a:2,ex:'Оттек жарық фазасындағы судың фотолизінен бөлінеді (изотоптық тәжірибелер ¹⁸O арқылы дәлелденген).'},
+{m:'bot',lv:1,t:'s',q:'Су мен минералды тұздарды тамырдан жапыраққа өткізетін ұлпа:',o:['флоэма','ксилема','камбий','колленхима'],a:1,ex:'Ксилеманың түтіктері (өлі жасушалар) суды жоғары қарай өткізеді. Флоэма органикалық заттарды өткізеді.'},
+{m:'bot',lv:2,t:'s',q:'Жабық тұқымды өсімдіктің эндосперм жасушасындағы хромосома жиынтығы:',o:['n','2n','3n','4n'],a:2,ex:'Қосарлы ұрықтануда спермий (n) диплоидты орталық жасушамен (2n) қосылады → 3n.'},
+{m:'bot',lv:2,t:'m',q:'Даражарнақтыларға тән белгілерді таңдаңыз:',o:['шашақ тамыр','доғалы не параллель жүйкелену','камбийдің болуы','гүл мүшелерінің 3 еселі болуы','торлы жүйкелену'],a:[0,1,3],ex:'Даражарнақтылар: 1 тұқымжарнақ, шашақ тамыр, доғалы/параллель жүйке, камбий жоқ, гүл 3 еселі.'},
+{m:'bot',lv:2,t:'mt',q:'Фотосинтез үдерісін өтетін орнымен сәйкестендіріңіз:',l:['судың фотолизі','Кальвин циклі','АТФ синтезі (фотофосфорлану)','CO₂-нің РуБФ-пен байланысуы'],o:['строма','тилакоид мембранасы'],a:[1,0,1,0],ex:'Жарық фазасы (фотолиз, фотофосфорлану) — тилакоидта; қараңғы фаза (Кальвин циклі, CO₂ фиксациясы) — стромада.'},
+{m:'bot',lv:3,t:'n',q:'Кальвин циклінде бір молекула глюкоза түзу үшін неше молекула CO₂ байланысады?',a:6,u:'',ex:'Глюкозада 6 көміртек атомы бар, әр айналымда бір CO₂ бекітіледі: 6 CO₂ (18 АТФ және 12 НАДФ·Н жұмсалады).'},
+{m:'bot',lv:3,t:'s',q:'Мүктердің тіршілік циклінде басым болатын ұрпақ және оның хромосома жиынтығы:',o:['спорофит, 2n','гаметофит, n','спорофит, n','гаметофит, 2n'],a:1,ex:'Мүкте жасыл жапырақты өсімдік — гаметофит (n); спорофит (2n) — гаметофитте паразиттік тіршілік ететін қорапша.'},
+// zoo
+{m:'zoo',lv:1,t:'s',q:'Бунақденелілердің аяқ саны:',o:['4','6','8','10'],a:1,ex:'Бунақденелілерде көкірек бөлімінде 3 жұп (6) аяқ бар. Өрмекшітәрізділерде — 8.'},
+{m:'zoo',lv:1,t:'s',q:'Жүрегі үш камералы, қарыншасында аралас қан болатын класс:',o:['балықтар','қосмекенділер','құстар','сүтқоректілер'],a:1,ex:'Қосмекенділерде 2 жүрекше, 1 қарынша бар; қарыншада артериялық және веналық қан араласады.'},
+{m:'zoo',lv:2,t:'s',q:'Алғашқы рет екінші дене қуысы (целом) және тұйық қан айналым жүйесі пайда болған тип:',o:['жалпақ құрттар','жұмыр құрттар','буылтық құрттар','ішекқуыстылар'],a:2,ex:'Буылтық құрттарда целом, тұйық қан айналым, метанефридийлер және құрсақ жүйке тізбегі бар.'},
+{m:'zoo',lv:2,t:'m',q:'Толық түрленіп дамитын бунақденелілерді таңдаңыз:',o:['көбелектер','қоңыздар','шегірткелер','масалар','тарақандар'],a:[0,1,3],ex:'Толық түрлену (қуыршақ сатысы бар): көбелектер, қоңыздар, қосқанаттылар (масалар), жарғаққанаттылар. Шегірткелер мен тарақандар — толымсыз түрлену.'},
+{m:'zoo',lv:2,t:'mt',q:'Жануарды зәр шығару мүшесімен сәйкестендіріңіз:',l:['ақ планария','жауын құрты','бал арасы','бақа'],o:['мальпиги түтікшелері','бүйрек','протонефридийлер','метанефридийлер'],a:[2,3,0,1],ex:'Жалпақ құрттар — протонефридий, буылтықтар — метанефридий, бунақденелілер — мальпиги түтікшелері, омыртқалылар — бүйрек.'},
+{m:'zoo',lv:3,t:'s',q:'Сүтқоректілерде сақталған қолқа доғасы:',o:['оң','сол','екеуі де','қолқа доғасы жоқ'],a:1,ex:'Сүтқоректілерде — сол қолқа доғасы, құстарда — оң. Бауырымен жорғалаушыларда екеуі де сақталған.'},
+// hum
+{m:'hum',lv:1,t:'s',q:'Өкпе артериясымен ағатын қан:',o:['артериялық','веналық','аралас','лимфа'],a:1,ex:'Өкпе артериясы оң қарыншадан веналық қанды өкпеге апарады. Артерия — жүректен шығатын тамыр.'},
+{m:'hum',lv:1,t:'s',q:'Әмбебап донор болып саналатын қан тобы:',o:['I (0)','II (A)','III (B)','IV (AB)'],a:0,ex:'I топтың эритроциттерінде A мен B антигендері жоқ, сондықтан реципиенттің антиденелері оларды агглютинацияламайды.'},
+{m:'hum',lv:2,t:'n',q:'Систолалық көлем 70 мл, жүрек соғу жиілігі 75 рет/мин. Жүректің минуттық көлемі неше мл?',a:5250,u:'мл',ex:'МКК = 70 мл × 75 = 5 250 мл/мин ≈ 5,25 л/мин.'},
+{m:'hum',lv:2,t:'mt',q:'Гормонды без қызметінің бұзылуымен сәйкестендіріңіз:',l:['инсулин жетіспеуі','балада тироксин жетіспеуі','ересекте өсу гормонының артуы','тироксиннің артуы'],o:['Базедов ауруы','акромегалия','кретинизм','қант диабеті'],a:[3,2,1,0],ex:'Инсулин жетіспеуі — қант диабеті; балада тироксин жетіспеуі — кретинизм; ересекте өсу гормоны артса — акромегалия; гипертиреоз — Базедов ауруы.'},
+{m:'hum',lv:2,t:'m',q:'Симпатикалық жүйке жүйесі қозғанда байқалатын өзгерістер:',o:['жүрек соғуының жиілеуі','қарашықтың кеңеюі','асқорыту сөлінің көбеюі','бронхтардың кеңеюі','сілекейдің көп бөлінуі'],a:[0,1,3],ex:'Симпатикалық жүйе ағзаны белсенді әрекетке дайындайды: жүрек жиілейді, қарашық пен бронхтар кеңейеді, асқорыту тежеледі.'},
+{m:'hum',lv:3,t:'n',q:'Тыныстық көлем 500 мл, дем алудың қосымша көлемі 2 500 мл, дем шығарудың қосымша көлемі 1 200 мл. ӨТС неше мл?',a:4200,u:'мл',ex:'ӨТС = 500 + 2 500 + 1 200 = 4 200 мл. Қалдық көлем есепке алынбайды.'},
+{m:'hum',lv:3,t:'s',q:'Нейрон мембранасында әрекет потенциалының деполяризация фазасы немен байланысты?',o:['K⁺ иондарының шығуы','Na⁺ иондарының жасушаға енуі','Cl⁻ иондарының шығуы','Na⁺/K⁺-сорғының тоқтауы'],a:1,ex:'Кернеуге тәуелді Na⁺ каналдары ашылып, Na⁺ жасушаға енеді — мембрана потенциалы −70 мВ-тан +30 мВ-қа дейін өзгереді.'},
+// evo
+{m:'evo',lv:1,t:'s',q:'Эволюцияның элементар бірлігі:',o:['дарақ','түр','популяция','биоценоз'],a:2,ex:'Эволюциялық өзгерістер популяцияның гендік қорында жүреді.'},
+{m:'evo',lv:2,t:'s',q:'Құс пен көбелек қанаты — бұл:',o:['гомологтық мүшелер','аналогтық мүшелер','рудименттер','атавизмдер'],a:1,ex:'Қызметі ұқсас, бірақ шығу тегі әртүрлі мүшелер — аналогтық; олар конвергенция нәтижесі.'},
+{m:'evo',lv:2,t:'mt',q:'Эволюциялық өзгерісті бағытымен сәйкестендіріңіз:',l:['сүтқоректілердегі жылықандылық','шегірткенің қорғаныш реңкі','цепеннің асқорыту жүйесінің жойылуы','гүлдің пайда болуы'],o:['идиоадаптация','жалпы дегенерация','ароморфоз'],a:[2,0,1,2],ex:'Ұйымдасу деңгейін көтеретін ірі өзгерістер — ароморфоз; жеке бейімделулер — идиоадаптация; паразитте мүшелердің жойылуы — жалпы дегенерация.'},
+{m:'evo',lv:3,t:'s',q:'Шағын популяцияда аллель жиілігінің кездейсоқ өзгеруі қалай аталады?',o:['табиғи сұрыпталу','гендер дрейфі','мутациялық үдеріс','оқшаулану'],a:1,ex:'Гендер дрейфі — кездейсоқ себептерден аллель жиілігінің өзгеруі; шағын популяцияда ерекше күшті («бөтелке мойны», «негізін қалаушы» әсері).'},
+// eco
+{m:'eco',lv:1,t:'s',q:'Экожүйеде органикалық заттарды бейорганикалық заттарға дейін ыдырататын ағзалар:',o:['продуценттер','I реттік консументтер','редуценттер','II реттік консументтер'],a:2,ex:'Редуценттер (бактериялар, саңырауқұлақтар) өлі органиканы минералдандырып, зат айналымын тұйықтайды.'},
+{m:'eco',lv:2,t:'n',q:'Продуценттердің энергиясы 50 000 кДж. 10% ережесі бойынша II реттік консументке неше кДж жетеді?',a:500,u:'кДж',ex:'Продуцент 50 000 → I реттік консумент 5 000 → II реттік консумент 500 кДж.'},
+{m:'eco',lv:2,t:'s',q:'Ешқашан төңкерілмейтін экологиялық пирамида:',o:['сан пирамидасы','биомасса пирамидасы','энергия пирамидасы','барлығы төңкеріле алады'],a:2,ex:'Әр деңгейде энергияның бір бөлігі тыныс алуға және жылуға жұмсалады, сондықтан келесі деңгейдің энергиясы әрқашан аз болады.'},
+{m:'eco',lv:3,t:'n',q:'Тоғанда 60 балық ұстап, белгілеп жіберді. Келесі жолы 80 балық ұсталды, оның 12-сі белгілі. Популяция саны қанша?',a:400,u:'',ex:'Линкольн–Петерсен индексі: N = (60 × 80) / 12 = 400 балық.'},
+{m:'eco',lv:3,t:'m',q:'Азот айналымына қатысатын үдерістерді таңдаңыз:',o:['азотфиксация','нитрификация','фотолиз','денитрификация','гликолиз'],a:[0,1,3],ex:'Азот айналымы: азотфиксация → аммонификация → нитрификация → денитрификация. Фотолиз — фотосинтездің, гликолиз — энергия алмасудың кезеңі.'},
+// mic
+{m:'mic',lv:1,t:'s',q:'Вирустарды ашқан ғалым:',o:['Л. Пастер','Р. Кох','Д.И. Ивановский','А. ван Левенгук'],a:2,ex:'Д.И. Ивановский 1892 жылы темекі теңбіл ауруының қоздырғышы бактериялық сүзгіден өтетінін көрсетті.'},
+{m:'mic',lv:2,t:'m',q:'Бактерия жасушасында болатын құрылымдарды таңдаңыз:',o:['нуклеоид','70S рибосомалар','митохондрия','плазмида','Гольджи аппараты'],a:[0,1,3],ex:'Прокариоттарда мембраналы органоидтар (митохондрия, Гольджи) жоқ; нуклеоид, плазмида, 70S рибосомалар бар.'},
+{m:'mic',lv:3,t:'n',q:'Бактерия әр 20 минут сайын бөлінеді. Бір бактериядан 2 сағатта неше жасуша түзіледі?',a:64,u:'',ex:'2 сағат = 120 минут = 6 ұрпақ; N = 2⁶ = 64.'},
+{m:'mic',lv:3,t:'s',q:'АИТВ-ның ДНҚ-сын өз РНҚ-сы негізінде синтездеуге мүмкіндік беретін фермент:',o:['ДНҚ-полимераза','кері транскриптаза','рестриктаза','РНҚ-полимераза'],a:1,ex:'Ретровирустар кері транскриптаза арқылы РНҚ матрицасынан ДНҚ түзеді, ол иесінің геномына кіріктіріледі.'}
+];
+const TIPS=[
+{h:'Аралықпен қайталау',l:['Жаңа тақырыпты 1, 3, 7 және 21 күннен кейін қайталаңыз.','Әр қайталауда конспектті емес, өзіңізге сұрақ қойып тексеріңіз.','Қате жіберген тақырыптарды «Қатемен жұмыс» бөлімінен күнделікті қараңыз.']},
+{h:'Белсенді еске түсіру',l:['Оқығаннан кейін кітапты жауып, сызбаны жадтан салыңыз.','Тақырыпты досыңызға 3 минутта түсіндіріп көріңіз.','Әр модульге өзіңіз 5 сұрақ құрастырыңыз.']},
+{h:'Кесте мен сызба',l:['Салыстыру тақырыптарын (митоз/мейоз, ДНҚ/РНҚ) тек кестемен жазыңыз.','Үдерістерді (репликация, трансляция) нұсқалы схема түрінде салыңыз.','Түсті маркер: қызыл — ерекшелік, жасыл — заңдылық.']},
+{h:'Есеп шығару тәртібі',l:['«Берілгені — Шешуі — Жауабы» үлгісімен жазыңыз.','Генетика есебінде міндетті түрде гамета мен Пеннет торын көрсетіңіз.','Жауапты бірлігімен және шартқа сәйкестігін тексеріңіз.']},
+{h:'Олимпиада күні',l:['Алдымен барлық тапсырманы шолып, оңайынан бастаңыз.','Бірнеше дұрыс жауапты тестте әр нұсқаны жеке «иә/жоқ» деп тексеріңіз.','Ашық сұрақта термин + механизм + мысал үштігін жазыңыз.']},
+{h:'Халықаралық деңгейге',l:['Campbell Biology оқулығын тараулап оқыңыз.','IBO-ның өткен жылдардағы тапсырмаларын уақыт өлшеп шешіңіз.','Зертханалық дағды: микроскоп, пипетка, график, статистика (орташа мән, χ²).']}
+];
+{
+const $=s=>document.querySelector(s);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let ST={ans:{},errs:[]};
+try{const s=JSON.parse(localStorage.getItem('bh_bio_v1')||'null');if(s&&s.ans)ST=s}catch(e){}
+const save=()=>{try{localStorage.setItem('bh_bio_v1',JSON.stringify(ST))}catch(e){}};
+QS.forEach((q,i)=>q.id=i);
+const modName=id=>(MODS.find(m=>m.id===id)||{}).name||'';
+
+/* ---------- stats ---------- */
+$('#stats').innerHTML=[[MODS.length,'теория модулі'],[QS.length,'интерактивті тапсырма'],[4,'3D түсіндірме'],[6,'есеп калькуляторы']].map(([b,s])=>`<div class="stat"><b>${b}</b><span>${s}</span></div>`).join('');
+
+/* ---------- modules ---------- */
+let curMod=MODS[0].id;
+function modProgress(id){const qs=QS.filter(q=>q.m===id);const ok=qs.filter(q=>ST.ans[q.id]&&ST.ans[q.id].ok).length;return qs.length?Math.round(ok/qs.length*100):0}
+function renderMlist(){
+ $('#mlist').innerHTML=MODS.map(m=>`<button role="tab" aria-selected="${m.id===curMod}" class="${m.id===curMod?'on':''}" data-m="${m.id}"><span class="ico">${m.ico}</span><span>${m.name}</span><span class="pr">${modProgress(m.id)}%</span></button>`).join('');
+}
+function showMod(id,scroll){
+ curMod=id;renderMlist();
+ const m=MODS.find(x=>x.id===id);
+ $('#mpanel').innerHTML=m.html+`<div class="mfoot"><button class="btn pri" data-go="${id}">Осы модуль бойынша тапсырмалар</button>${MODS.indexOf(m)<MODS.length-1?`<button class="btn" data-next="1">Келесі модуль</button>`:''}</div>`;
+ if(scroll)$('#theory').scrollIntoView({behavior:RM?'auto':'smooth'});
+}
+$('#mlist').addEventListener('click',e=>{const b=e.target.closest('button');if(b)showMod(b.dataset.m)});
+$('#mpanel').addEventListener('click',e=>{
+ const g=e.target.closest('[data-go]');if(g){$('#qmod').value=g.dataset.go;renderQuiz();$('#quiz').scrollIntoView({behavior:RM?'auto':'smooth'})}
+ if(e.target.closest('[data-next]')){const i=MODS.findIndex(m=>m.id===curMod);showMod(MODS[i+1].id,true)}
+});
+showMod(curMod);
+
+/* ---------- quiz ---------- */
+$('#qmod').innerHTML=`<option value="">Барлық модуль</option>`+MODS.map(m=>`<option value="${m.id}">${m.ico}. ${m.name}</option>`).join('')+`<option value="err">Қателерім</option>`;
+let order=QS.map(q=>q.id);
+const LV=['','А','В','С'];const K='ABCDEF';
+function ansText(q){
+ if(q.t==='s')return q.o[q.a];
+ if(q.t==='m')return q.a.map(i=>q.o[i]).join('; ');
+ if(q.t==='n')return q.a+(q.u?' '+q.u:'');
+ if(q.t==='mt')return q.l.map((l,i)=>l+' — '+q.o[q.a[i]]).join('; ');
+}
+function card(q){
+ const st=ST.ans[q.id];
+ let body='';
+ if(q.t==='s')body=`<div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="k">${K[i]}</span><span>${o}</span></button>`).join('')}</div>`;
+ if(q.t==='m')body=`<div class="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}" aria-pressed="false"><span class="k">${i+1}</span><span>${o}</span></button>`).join('')}</div><div style="margin-top:10px"><button class="btn sm" data-chk="1">Тексеру</button></div>`;
+ if(q.t==='n')body=`<div class="row" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><input type="number" step="any" inputmode="decimal" aria-label="Жауап" style="width:170px"> <span>${q.u||''}</span><button class="btn sm" data-chk="1">Тексеру</button></div>`;
+ if(q.t==='mt')body=`<div class="match">${q.l.map((l,i)=>`<label><span>${i+1}) ${l}</span><select data-i="${i}"><option value="">— таңдаңыз —</option>${q.o.map((o,j)=>`<option value="${j}">${o}</option>`).join('')}</select></label>`).join('')}</div><div style="margin-top:10px"><button class="btn sm" data-chk="1">Тексеру</button></div>`;
+ const tp={s:'Бір дұрыс жауап',m:'Бірнеше дұрыс жауап',n:'Есеп',mt:'Сәйкестендіру'}[q.t];
+ return `<div class="q" data-q="${q.id}"><div class="meta"><span class="tag">${MODS.find(m=>m.id===q.m).ico}. ${modName(q.m)}</span><span class="tag${q.lv===3?' lv3':''}">${LV[q.lv]} деңгей</span><span class="tag">${tp}</span>${st?`<span class="tag" style="color:${st.ok?'var(--ok)':'var(--bad)'}">${st.ok?'Бұрын дұрыс':'Бұрын қате'}</span>`:''}</div><div class="stem">${q.q}</div>${body}<div class="fb"></div></div>`;
+}
+function renderQuiz(){
+ const m=$('#qmod').value,lv=$('#qlv').value;
+ let list=order.map(i=>QS[i]);
+ if(m==='err')list=list.filter(q=>ST.errs.includes(q.id));else if(m)list=list.filter(q=>q.m===m);
+ if(lv)list=list.filter(q=>q.lv==+lv);
+ $('#qlist').innerHTML=list.length?list.map(card).join(''):`<div class="empty">${m==='err'?'Қате жоқ — керемет! Жаңа тапсырмаларды орындаңыз.':'Бұл сүзгі бойынша тапсырма жоқ.'}</div>`;
+ renderScore();
+}
+function renderScore(){
+ const a=Object.values(ST.ans);const ok=a.filter(x=>x.ok).length;
+ $('#qscore').innerHTML=`<div><b>${a.length}</b>/ ${QS.length} орындалды</div><div><b>${ok}</b>дұрыс</div><div><b>${a.length?Math.round(ok/a.length*100):0}%</b>дәлдік</div><div><b>${ST.errs.length}</b>қатемен жұмысқа</div>`;
+}
+function record(q,ok){
+ ST.ans[q.id]={ok};
+ if(ok)ST.errs=ST.errs.filter(x=>x!==q.id);else if(!ST.errs.includes(q.id))ST.errs.push(q.id);
+ save();renderScore();renderErrors();renderMlist();
+}
+function feedback(el,q,ok,extra){
+ const fb=el.querySelector('.fb');
+ fb.className='fb '+(ok?'ok':'no');
+ fb.innerHTML=ok?`<b>Дұрыс! Жарайсыз.</b>${q.ex}`:`<b>Қате. Дұрыс жауабы: ${ansText(q)}</b>${extra||''}${q.ex}<div style="margin-top:6px;color:var(--mut);font-size:14px">Сұрақ «Қатемен жұмыс» бөліміне қосылды.</div>`;
+}
+$('#qlist').addEventListener('click',e=>{
+ const el=e.target.closest('.q');if(!el||el.dataset.done)return;
+ const q=QS[+el.dataset.q];
+ const ob=e.target.closest('.opt');
+ if(q.t==='s'&&ob){
+  const i=+ob.dataset.i,ok=i===q.a;
+  el.querySelectorAll('.opt').forEach((b,j)=>{b.disabled=true;if(j===q.a)b.classList.add('ok');else if(j===i)b.classList.add('no')});
+  el.dataset.done=1;feedback(el,q,ok);record(q,ok);return;
+ }
+ if(q.t==='m'&&ob){ob.classList.toggle('sel');ob.setAttribute('aria-pressed',ob.classList.contains('sel'));return}
+ if(!e.target.closest('[data-chk]'))return;
+ if(q.t==='m'){
+  const sel=[...el.querySelectorAll('.opt')].map((b,i)=>b.classList.contains('sel')?i:-1).filter(i=>i>=0);
+  if(!sel.length)return;
+  const ok=sel.length===q.a.length&&sel.every(i=>q.a.includes(i));
+  el.querySelectorAll('.opt').forEach((b,i)=>{b.disabled=true;b.classList.remove('sel');if(q.a.includes(i))b.classList.add('ok');else if(sel.includes(i))b.classList.add('no')});
+  el.dataset.done=1;feedback(el,q,ok);record(q,ok);
+ }
+ if(q.t==='n'){
+  const inp=el.querySelector('input');const v=parseFloat(String(inp.value).replace(',','.'));
+  if(isNaN(v)){inp.focus();return}
+  const ok=Math.abs(v-q.a)<=Math.max(0.01,Math.abs(q.a)*0.01);
+  inp.disabled=true;inp.style.borderColor=ok?'var(--ok)':'var(--bad)';
+  el.dataset.done=1;feedback(el,q,ok,ok?'':`Сіздің жауабыңыз: ${v}. `);record(q,ok);
+ }
+ if(q.t==='mt'){
+  const ss=[...el.querySelectorAll('select')];
+  if(ss.some(s=>s.value===''))return;
+  let ok=true;
+  ss.forEach((s,i)=>{const r=+s.value===q.a[i];if(!r)ok=false;s.classList.add(r?'ok':'no');s.disabled=true});
+  el.dataset.done=1;feedback(el,q,ok);record(q,ok);
+ }
+});
+$('#qmod').addEventListener('change',renderQuiz);$('#qlv').addEventListener('change',renderQuiz);
+$('#qshuf').addEventListener('click',()=>{for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]]}renderQuiz()});
+$('#qreset').addEventListener('click',()=>{ST.ans={};save();renderQuiz();renderMlist()});
+
+/* ---------- errors ---------- */
+function renderErrors(){
+ const es=ST.errs.map(i=>QS[i]);
+ const by=MODS.map(m=>[m,es.filter(q=>q.m===m.id).length]).filter(x=>x[1]);
+ const mx=Math.max(1,...by.map(x=>x[1]));
+ $('#emap').innerHTML=by.length?`<h3 style="margin-top:8px">Қателер картасы</h3>`+by.map(([m,n])=>`<div style="display:grid;grid-template-columns:minmax(0,14em) minmax(0,1fr) 2em;gap:10px;align-items:center;margin:6px 0;font-size:14.5px"><span>${m.ico}. ${m.name}</span><span style="height:12px;border-radius:9px;background:rgba(255,255,255,.08)"><i style="display:block;height:100%;width:${n/mx*100}%;border-radius:9px;background:linear-gradient(90deg,var(--pk),var(--gold))"></i></span><b style="text-align:right">${n}</b></div>`).join(''):'';
+ $('#elist').innerHTML=es.length?es.map(q=>`<div class="err"><div class="meta" style="margin-bottom:6px"><span class="tag">${modName(q.m)}</span></div><div class="st">${q.q}</div><div class="ca">Дұрыс жауабы: ${ansText(q)}</div><div class="ex2">${q.ex}</div><button class="btn sm" style="margin-top:8px" data-th="${q.m}">Теорияны қайталау</button></div>`).join(''):`<div class="empty">Әзірге қате жоқ. Тапсырмаларды орындаңыз — қате жауаптар осында жиналады.</div>`;
+}
+$('#elist').addEventListener('click',e=>{const b=e.target.closest('[data-th]');if(b)showMod(b.dataset.th,true)});
+$('#eRetry').addEventListener('click',()=>{$('#qmod').value='err';$('#qlv').value='';renderQuiz();$('#quiz').scrollIntoView({behavior:RM?'auto':'smooth'})});
+$('#eClear').addEventListener('click',()=>{ST.errs=[];save();renderErrors();renderScore()});
+renderQuiz();renderErrors();
+
+/* ---------- tips ---------- */
+$('#tipgrid').innerHTML=TIPS.map(t=>`<div class="tip"><h3>${t.h}</h3><ul>${t.l.map(x=>`<li>${x}</li>`).join('')}</ul></div>`).join('');
+
+/* ---------- nav highlight ---------- */
+const navObs=new IntersectionObserver(es=>{es.forEach(en=>{if(en.isIntersecting){document.querySelectorAll('#topnav a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+en.target.id))}})},{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main section[id]').forEach(s=>navObs.observe(s));
+
+/* ---------- canvas helpers ---------- */
+function fit(cv){const r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);const w=Math.max(1,Math.round(r.width*d)),h=Math.max(1,Math.round(r.height*d));if(cv.width!==w||cv.height!==h){cv.width=w;cv.height=h}const c=cv.getContext('2d');c.setTransform(d,0,0,d,0,0);return[c,r.width,r.height]}
+function ball(c,x,y,r,col,a){c.globalAlpha=a==null?1:a;const g=c.createRadialGradient(x-r*.35,y-r*.35,r*.1,x,y,r);g.addColorStop(0,'#ffffff');g.addColorStop(.25,col);g.addColorStop(1,shade(col));c.fillStyle=g;c.beginPath();c.arc(x,y,Math.max(.5,r),0,7);c.fill();c.globalAlpha=1}
+function shade(h){const n=parseInt(h.slice(1),16);const r=(n>>16)*.35|0,g=(n>>8&255)*.35|0,b=(n&255)*.35|0;return`rgb(${r},${g},${b})`}
+function label(c,txt,x,y,col,size){c.font=`600 ${size||13}px Inter,sans-serif`;c.textAlign='center';c.textBaseline='middle';const w=c.measureText(txt).width+12;c.fillStyle='rgba(3,21,19,.82)';c.beginPath();c.roundRect?c.roundRect(x-w/2,y-11,w,22,7):c.rect(x-w/2,y-11,w,22);c.fill();c.fillStyle=col||'#e9fbf5';c.fillText(txt,x,y)}
+const BASE={A:'#ff6b8f',T:'#f6c453',G:'#35d6a0',C:'#5fd0ff'};const PAIR={A:'T',T:'A',G:'C',C:'G'};const KZ={A:'А',T:'Т',G:'Г',C:'Ц'};
+const SEQ='ATGCGTACCGATTGCAGCTAGGCTAATCGG'.split('');
+
+/* DNA helix renderer: u = separation 0..1, v = new strand 0..1 */
+function helix(c,W,H,rot,o){
+ o=o||{};const N=o.n||22,R=Math.min(W*.16,H*.13,70),dy=(H*.84)/N,cx=W/2,cy=H/2,f=420,tw=.58;
+ const items=[];
+ const P=(x,y,z)=>{const X=x*Math.cos(rot)+z*Math.sin(rot),Z=-x*Math.sin(rot)+z*Math.cos(rot);const s=f/(f+Z);return{x:cx+X*s,y:cy+y*s,z:Z,s}};
+ const prev={};
+ for(let i=0;i<N;i++){
+  const y=(i-N/2+.5)*dy,th=i*tw;
+  const loc=o.u==null?0:Math.min(1,Math.max(0,(o.u*(N+6)-i)/5));
+  const nv=o.v==null?0:Math.min(1,Math.max(0,(o.v*(N+6)-i)/5))*loc;
+  const D=loc*R*1.9;
+  const b=SEQ[i%SEQ.length],pb=PAIR[b];
+  const a1=P(R*Math.cos(th)-D,y,R*Math.sin(th)),a2=P(R*Math.cos(th+Math.PI)+D,y,R*Math.sin(th+Math.PI));
+  const n1=P(R*Math.cos(th+Math.PI)-D,y,R*Math.sin(th+Math.PI)),n2=P(R*Math.cos(th)+D,y,R*Math.sin(th));
+  const old=o.mark?'#5fd0ff':'#9fe8d0',neu='#f6c453';
+  items.push({z:a1.z,d:()=>ball(c,a1.x,a1.y,7*a1.s,old)});
+  items.push({z:a2.z,d:()=>ball(c,a2.x,a2.y,7*a2.s,old)});
+  if(loc<.5){const m={x:(a1.x+a2.x)/2,y:(a1.y+a2.y)/2};const al=1-loc*2;items.push({z:(a1.z+a2.z)/2,d:()=>{c.globalAlpha=al;c.lineWidth=5*a1.s;c.lineCap='round';c.strokeStyle=BASE[b];c.beginPath();c.moveTo(a1.x,a1.y);c.lineTo(m.x,m.y);c.stroke();c.strokeStyle=BASE[pb];c.beginPath();c.moveTo(m.x,m.y);c.lineTo(a2.x,a2.y);c.stroke();c.globalAlpha=1;if(o.labels&&i%3===0&&loc<.1){label(c,KZ[b]+(b==='A'||b==='T'?' = ':' ≡ ')+KZ[pb],m.x+(a2.x>a1.x?0:0),m.y,'#fff',11)}}})}
+  if(nv>0){
+   [[a1,n1,b,pb],[a2,n2,pb,b]].forEach(([p,q,x1,x2])=>{const m={x:(p.x+q.x)/2,y:(p.y+q.y)/2};items.push({z:(p.z+q.z)/2,d:()=>{c.globalAlpha=nv;c.lineWidth=5*p.s;c.lineCap='round';c.strokeStyle=BASE[x1];c.beginPath();c.moveTo(p.x,p.y);c.lineTo(m.x,m.y);c.stroke();c.strokeStyle=BASE[x2];c.beginPath();c.moveTo(m.x,m.y);c.lineTo(q.x,q.y);c.stroke();c.globalAlpha=1}});items.push({z:q.z,d:()=>ball(c,q.x,q.y,7*q.s,neu,nv)})});
+  }
+  [['a1',a1],['a2',a2],['n1',n1],['n2',n2]].forEach(([k,p])=>{const pr=prev[k];const vis=k[0]==='n'?nv:1;if(pr&&vis>0&&pr.v>0){const pp=pr.p;items.push({z:(p.z+pp.z)/2+2,d:()=>{c.globalAlpha=Math.min(vis,pr.v)*.9;c.strokeStyle=k[0]==='n'?'#f6c453':(o.mark?'#5fd0ff':'#7fdcc0');c.lineWidth=3*p.s;c.beginPath();c.moveTo(pp.x,pp.y);c.lineTo(p.x,p.y);c.stroke();c.globalAlpha=1}})}prev[k]={p,v:vis}});
+ }
+ items.sort((a,b)=>b.z-a.z).forEach(it=>it.d());
+}
+
+/* hero */
+{const cv=$('#heroCv');let t0=performance.now();const draw=now=>{const[c,W,H]=fit(cv);c.clearRect(0,0,W,H);helix(c,W,H,RM?.6:(now-t0)/2600,{n:24});if(!RM)requestAnimationFrame(draw)};requestAnimationFrame(draw);if(RM)new ResizeObserver(()=>requestAnimationFrame(draw)).observe(cv)}
+
+/* ---------- scenes ---------- */
+const SCENES=[];
+SCENES.push({title:'ДНҚ құрылысы және репликациясы',steps:[
+ {t:'Қос спираль',d:'ДНҚ — екі антипараллель полинуклеотид тізбегінен тұратын оң бұралған қос спираль. Бір орамда 10 нуклеотид жұбы бар, орам қадамы 3,4 нм.',dur:6},
+ {t:'Комплементарлық',d:'Аденин тиминмен екі сутектік байланыс (А = Т), гуанин цитозинмен үш сутектік байланыс (Г ≡ Ц) түзеді. Чаргафф ережесі осыдан шығады: А = Т, Г = Ц.',dur:7},
+ {t:'Хеликаза тізбектерді ажыратады',d:'Хеликаза сутектік байланыстарды үзіп, репликация шанышқысын түзеді; топоизомераза бұралу кернеуін жояды.',dur:7},
+ {t:'ДНҚ-полимераза жаңа тізбек құрастырады',d:'Әр ескі тізбек матрица болады. ДНҚ-полимераза комплементар нуклеотидтерді тек 5′→3′ бағытта қосады: жетекші тізбек үздіксіз, қалушы тізбек Оказаки фрагменттерімен түзіледі.',dur:8},
+ {t:'Екі еншілес молекула',d:'Әр жаңа молекулада бір ескі (көк) және бір жаңа (алтын) тізбек бар — репликация жартылай консервативті (Мезельсон–Сталь тәжірибесі, 1958).',dur:7}],
+ draw(c,W,H,s,p,t){const rot=t/2400;
+  if(s===0)helix(c,W,H,rot,{});
+  if(s===1)helix(c,W,H,rot*.5,{labels:1});
+  if(s===2)helix(c,W,H,rot,{u:p,v:0,mark:1});
+  if(s===3)helix(c,W,H,rot,{u:1,v:p,mark:1});
+  if(s===4){helix(c,W,H,rot,{u:1,v:1,mark:1});label(c,'ескі тізбек',W*.18,H*.07,'#5fd0ff');label(c,'жаңа тізбек',W*.82,H*.07,'#f6c453')}
+ }});
+
+/* mitosis */
+const CHR=[{L:46,col:'#ff6b8f'},{L:46,col:'#5fd0ff'},{L:30,col:'#ff6b8f'},{L:30,col:'#5fd0ff'}];
+function chromatid(c,x,y,L,arm,col,w){c.strokeStyle=col;c.lineWidth=w||7;c.lineCap='round';c.lineJoin='round';c.beginPath();c.moveTo(x+arm,y-L/2);c.quadraticCurveTo(x,y-L/6,x,y);c.quadraticCurveTo(x,y+L/6,x+arm,y+L/2);c.stroke();c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=2;c.beginPath();c.moveTo(x+arm*.9-1,y-L/2+2);c.quadraticCurveTo(x-1,y-L/6,x-1,y-2);c.stroke()}
+function cellBody(c,cx,cy,rx,ry,pinch){
+ c.save();const g=c.createRadialGradient(cx-rx*.3,cy-ry*.4,10,cx,cy,rx*1.1);g.addColorStop(0,'rgba(120,240,200,.35)');g.addColorStop(1,'rgba(20,90,80,.25)');c.fillStyle=g;c.strokeStyle='rgba(160,255,220,.7)';c.lineWidth=3;
+ c.beginPath();const k=1-pinch*.92;for(let i=0;i<=80;i++){const a=i/80*Math.PI*2;const x=cx+rx*Math.cos(a);const yy=Math.sin(a)*ry*(1-(1-k)*Math.exp(-Math.pow(Math.cos(a)*3.2,2)));i?c.lineTo(x,cy+yy):c.moveTo(x,cy+yy)}c.closePath();c.fill();c.stroke();c.restore();
+}
+SCENES.push({title:'Митоз фазалары',steps:[
+ {t:'Интерфаза',d:'Хромосомалар деспирализацияланған (хроматин). S кезеңінде ДНҚ екі еселенеді: 2n2c → 2n4c. Центриольдер де екі еселенеді.',dur:6},
+ {t:'Профаза',d:'Хромосомалар спиральданып, қысқарып, жуандайды — әрқайсысы екі хроматидтен тұрады. Ядрошық пен ядро қабықшасы ыдырайды, бөліну ұршығы түзіле бастайды. 2n4c.',dur:7},
+ {t:'Метафаза',d:'Хромосомалар жасуша экваторына тізіліп, метафазалық пластинка түзеді. Ұршық жіпшелері центромераларға бекиді. Кариотипті зерттеуге ең қолайлы кезең. 2n4c.',dur:7},
+ {t:'Анафаза',d:'Центромералар бөлініп, апалы-сіңлілі хроматидтер қарама-қарсы полюстерге тартылады. Әр хроматид жеке хромосомаға айналады: жасушада 4n4c.',dur:7},
+ {t:'Телофаза және цитокинез',d:'Полюстерде ядро қабықшасы қайта түзіліп, хромосомалар деспирализацияланады. Цитоплазма бөлініп, генетикалық тұрғыдан бірдей екі жасуша пайда болады: әрқайсысы 2n2c.',dur:8}],
+ draw(c,W,H,s,p,t){
+  const cx=W/2,cy=H/2,rx=Math.min(W*.42,H*.62),ry=Math.min(H*.36,W*.3),sc=Math.min(1,ry/120);
+  const pinch=s===4?p:0;cellBody(c,cx,cy,rx,ry,pinch);
+  const plx=rx*.78;
+  // centrosomes
+  const cpos=s===0?[[cx-10,cy-ry*.55],[cx+10,cy-ry*.55]]:s===1?[[cx-plx*p,cy-ry*.55*(1-p)],[cx+plx*p,cy-ry*.55*(1-p)]]:[[cx-plx,cy],[cx+plx,cy]];
+  // spindle
+  if(s>=1&&s<=3){c.strokeStyle='rgba(246,196,83,.35)';c.lineWidth=1;for(let i=0;i<9;i++){const yy=cy+(i-4)*ry*.17;[0,1].forEach(k=>{c.beginPath();c.moveTo(cpos[k][0],cpos[k][1]);c.quadraticCurveTo(cx,cy+(yy-cy)*1.25,cx,yy);c.stroke()})}}
+  cpos.forEach(([x,y])=>ball(c,x,y,6,'#f6c453'));
+  // nucleus
+  const nucA=s===0?1:s===1?1-p:s===4?p:0;
+  if(nucA>0){const pts=s===4?[[cx-rx*.55,cy],[cx+rx*.55,cy]]:[[cx,cy]];pts.forEach(([x,y])=>{c.globalAlpha=nucA;c.setLineDash(s===1?[6,6]:[]);c.strokeStyle='#b49bff';c.fillStyle='rgba(180,155,255,.15)';c.lineWidth=2.5;c.beginPath();c.ellipse(x,y,ry*.5*(s===4?.8:1),ry*.45*(s===4?.8:1),0,0,7);c.fill();c.stroke();c.setLineDash([]);c.globalAlpha=1})}
+  const L=k=>CHR[k].L*sc;
+  if(s===0||(s===4)){
+   // chromatin squiggles
+   const centers=s===0?[[cx,cy]]:[[cx-rx*.55,cy],[cx+rx*.55,cy]];
+   centers.forEach(([x0,y0],ci)=>{for(let k=0;k<4;k++){c.strokeStyle=CHR[k].col;c.globalAlpha=s===4?p*.8:.8;c.lineWidth=2;c.beginPath();for(let j=0;j<40;j++){const a=j*.5+k*1.7+ci;const r=ry*.32*(.3+.6*Math.abs(Math.sin(j*.37+k)));const x=x0+Math.cos(a)*r*.9,y=y0+Math.sin(a*1.3)*r*.8;j?c.lineTo(x,y):c.moveTo(x,y)}c.stroke();c.globalAlpha=1}});
+   if(s===4&&p<.6){const al=1-p/.6;c.globalAlpha=al;CHR.forEach((ch,k)=>{const yy=cy+(k-1.5)*ry*.38;[-1,1].forEach(sd=>chromatid(c,cx+sd*(plx*.85),yy,L(k)*.8,-sd*L(k)*.3,ch.col,6*sc+1))});c.globalAlpha=1}
+  }
+  if(s===1){CHR.forEach((ch,k)=>{const a=k*1.6+.4;const x=cx+Math.cos(a)*ry*.22,y=cy+Math.sin(a)*ry*.2;const cond=.5+.5*p;c.globalAlpha=.4+.6*p;c.save();c.translate(x,y);c.rotate(a);chromatid(c,-3,0,L(k)*cond,-10*cond,ch.col,6*sc+1);chromatid(c,3,0,L(k)*cond,10*cond,ch.col,6*sc+1);c.restore();c.globalAlpha=1})}
+  if(s===2){CHR.forEach((ch,k)=>{const a0=k*1.6+.4;const fx=cx+Math.cos(a0)*ry*.22,fy=cy+Math.sin(a0)*ry*.2;const tx=cx,ty=cy+(k-1.5)*ry*.38;const q=Math.min(1,p*1.6);const x=fx+(tx-fx)*q,y=fy+(ty-fy)*q;c.save();c.translate(x,y);c.rotate(a0*(1-q));chromatid(c,-3,0,L(k),-10,ch.col,6*sc+1);chromatid(c,3,0,L(k),10,ch.col,6*sc+1);c.restore()});c.strokeStyle='rgba(255,255,255,.25)';c.setLineDash([4,6]);c.beginPath();c.moveTo(cx,cy-ry*.9);c.lineTo(cx,cy+ry*.9);c.stroke();c.setLineDash([])}
+  if(s===3){CHR.forEach((ch,k)=>{const yy=cy+(k-1.5)*ry*.38;[-1,1].forEach(sd=>{const x=cx+sd*(3+p*plx*.85);const arm=-sd*(10-(10+L(k)*.3)*p);chromatid(c,x,yy,L(k)*(1-.2*p),arm,ch.col,6*sc+1)})})}
+  const nc=['2n2c → 2n4c','2n4c','2n4c','4n4c','2n2c + 2n2c'][s];label(c,nc,W/2,H*.08,'#f6c453',14);
+ }});
+
+/* 3D cell */
+const ORG=[
+ {k:'mem',t:'Плазмалық мембрана',d:'Фосфолипидті қос қабат пен нәруыздардан тұрады (сұйық-мозаикалық үлгі). Таңдамалы өткізгіштігі бар: зат тасымалын, жасушалар арасындағы байланысты қамтамасыз етеді.'},
+ {k:'nuc',t:'Ядро',d:'Қос мембранамен қоршалған, тесіктері арқылы иРНҚ цитоплазмаға шығады. Хроматинде ДНҚ сақталады; ядрошықта рРНҚ мен рибосома суббірліктері түзіледі.',col:'#b49bff'},
+ {k:'mit',t:'Митохондриялар',d:'Қос мембраналы, ішкі мембрана қатпарлары — кристалар. Матриксте Кребс циклі, кристаларда тыныс тізбегі мен АТФ-синтаза орналасқан. Өз сақина ДНҚ-сы бар.',col:'#ff6b8f'},
+ {k:'er',t:'ЭПТ және рибосомалар',d:'Түйіршікті ЭПТ бетіндегі рибосомаларда секрециялық және мембраналық нәруыздар синтезделеді. Тегіс ЭПТ липидтер синтезіне және залалсыздандыруға қатысады.',col:'#5fd0ff'},
+ {k:'gol',t:'Гольджи аппараты',d:'Жалпақ цистерналар жиынтығы. ЭПТ-дан келген нәруыздарды түрлендіріп, сұрыптайды, көпіршіктерге салып жасушадан шығарады; лизосомаларды түзеді.',col:'#f6c453'},
+ {k:'lys',t:'Лизосомалар',d:'Бір мембраналы көпіршіктер, ішінде қышқыл ортада әсер ететін гидролиздік ферменттер бар. Жасушаішілік асқорыту, ескі органоидтарды ыдырату (аутофагия).',col:'#35d6a0'}];
+const CELLPTS=(()=>{const a=[];const n=260;for(let i=0;i<n;i++){const y=1-2*(i+.5)/n,r=Math.sqrt(1-y*y),th=i*2.399963;a.push([Math.cos(th)*r,y,Math.sin(th)*r])}return a})();
+const rnd=(s=>()=>(s=(s*16807)%2147483647)/2147483647)(7);
+const MITO=[...Array(7)].map(()=>{const th=rnd()*6.28,ph=Math.acos(2*rnd()-1),r=.62+rnd()*.15;return[r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph),r*Math.sin(ph)*Math.sin(th)]});
+const LYS=[...Array(6)].map(()=>{const th=rnd()*6.28,ph=Math.acos(2*rnd()-1),r=.5+rnd()*.25;return[r*Math.sin(ph)*Math.cos(th),r*Math.cos(ph),r*Math.sin(ph)*Math.sin(th)]});
+const ERP=[];for(let k=0;k<4;k++)for(let j=0;j<26;j++){const a=j/26*Math.PI*1.6+k*.8,r=.36+k*.055;ERP.push([r*Math.cos(a),(k-1.5)*.07+Math.sin(j*.7)*.03,r*Math.sin(a)])}
+const GOL=[];for(let k=0;k<5;k++)for(let j=0;j<12;j++){const a=-.6+j/11*1.2;GOL.push([.55+k*.045+Math.cos(a)*.0,-.25+Math.sin(a)*.22,-.35+k*.0])}
+let cellRot={a:.5,b:-.25},drag=null;
+SCENES.push({title:'Жасуша құрылысы (3D модель)',drag:1,steps:ORG.map(o=>({t:o.t,d:o.d,dur:7})),
+ draw(c,W,H,s,p,t){
+  const auto=drag?0:(RM?0:.0035);cellRot.a+=auto;
+  const cx=W/2,cy=H/2,R=Math.min(W,H)*.4,f=3.2;
+  const P=([x,y,z])=>{const ca=Math.cos(cellRot.a),sa=Math.sin(cellRot.a),cb=Math.cos(cellRot.b),sb=Math.sin(cellRot.b);let X=x*ca+z*sa,Z=-x*sa+z*ca;let Y=y*cb-Z*sb;Z=y*sb+Z*cb;const k=f/(f+Z);return{x:cx+X*R*k,y:cy+Y*R*k,z:Z,k}};
+  const hl=ORG[s].k;const it=[];
+  CELLPTS.forEach(q=>{const v=P(q);it.push({z:v.z,d:()=>{c.globalAlpha=hl==='mem'?(.5+.4*(v.z<0)):(.12+.25*(v.z<0));c.fillStyle='#9fe8d0';c.beginPath();c.arc(v.x,v.y,(hl==='mem'?3.2:2.2)*v.k,0,7);c.fill();c.globalAlpha=1}})});
+  const al=k=>hl===k?1:.38;
+  const n=P([0,0,0]);it.push({z:n.z,d:()=>{ball(c,n.x,n.y,R*.27*n.k,'#b49bff',al('nuc'));ball(c,n.x+R*.05,n.y-R*.04,R*.07*n.k,'#6b4fd8',al('nuc'))}});
+  MITO.forEach(q=>{const v=P(q);it.push({z:v.z,d:()=>{c.globalAlpha=al('mit');c.save();c.translate(v.x,v.y);c.rotate(q[0]*3);const g=c.createLinearGradient(0,-8,0,8);g.addColorStop(0,'#ffd0dc');g.addColorStop(.4,'#ff6b8f');g.addColorStop(1,'#7a1f38');c.fillStyle=g;c.beginPath();c.ellipse(0,0,R*.09*v.k,R*.045*v.k,0,0,7);c.fill();c.strokeStyle='rgba(255,255,255,.6)';c.lineWidth=1;c.beginPath();for(let i=-3;i<=3;i++){c.moveTo(i*R*.022*v.k,-R*.03*v.k);c.lineTo(i*R*.022*v.k+3,R*.03*v.k)}c.stroke();c.restore();c.globalAlpha=1}})});
+  ERP.forEach((q,i)=>{const v=P(q);it.push({z:v.z,d:()=>{c.globalAlpha=al('er');c.fillStyle='#5fd0ff';c.beginPath();c.arc(v.x,v.y,3*v.k,0,7);c.fill();if(i%2===0){c.fillStyle='#e9fbf5';c.beginPath();c.arc(v.x+3,v.y-3,1.6*v.k,0,7);c.fill()}c.globalAlpha=1}})});
+  GOL.forEach(q=>{const v=P(q);it.push({z:v.z,d:()=>{c.globalAlpha=al('gol');c.fillStyle='#f6c453';c.beginPath();c.arc(v.x,v.y,3.4*v.k,0,7);c.fill();c.globalAlpha=1}})});
+  LYS.forEach(q=>{const v=P(q);it.push({z:v.z,d:()=>ball(c,v.x,v.y,R*.04*v.k,'#35d6a0',al('lys'))})});
+  it.sort((a,b)=>b.z-a.z).forEach(x=>x.d());
+  const anc={mem:[0,-1,0],nuc:[0,0,0],mit:MITO[0],er:ERP[10],gol:GOL[30],lys:LYS[0]}[hl];const v=P(anc);
+  const lx=Math.min(W-90,Math.max(90,v.x+(v.x<cx?-60:60))),ly=Math.max(22,v.y-R*.35);
+  c.strokeStyle='rgba(255,255,255,.7)';c.lineWidth=1.2;c.beginPath();c.moveTo(v.x,v.y);c.lineTo(lx,ly+11);c.stroke();label(c,ORG[s].t,lx,ly,ORG[s].col||'#9fe8d0',13);
+ }});
+
+/* translation */
+const MRNA=['АУГ','ГЦА','УАУ','УГГ','УАА'],AA=['Мет','Ала','Тир','Три',''],ANTI=['УАЦ','ЦГУ','АУА','АЦЦ',''];
+SCENES.push({title:'Трансляция: нәруыз синтезі',steps:[
+ {t:'Инициация',d:'Рибосоманың кіші суббірлігі иРНҚ-ның 5′-ұшына бекіп, АУГ старт-кодонын табады. Антикодоны УАЦ болатын тРНҚ метионинді әкеледі, содан кейін үлкен суббірлік қосылады.',dur:7},
+ {t:'Элонгация: Ала',d:'Келесі кодон ГЦА. Антикодоны ЦГУ тРНҚ аланинді әкеледі. Метионин мен аланин арасында пептидтік байланыс түзіледі, рибосома бір кодонға (3 нуклеотид) жылжиды.',dur:7},
+ {t:'Элонгация: Тир',d:'УАУ кодонына АУА антикодонды тРНҚ тирозинді жеткізеді. Тізбек ұзарады, бос тРНҚ рибосомадан шығып, жаңа аминқышқылын тасу үшін қайта пайдаланылады.',dur:7},
+ {t:'Элонгация: Три',d:'УГГ кодоны триптофанды кодтайды (антикодоны АЦЦ). Бір иРНҚ-ны бір мезгілде бірнеше рибосома оқи алады — полисома.',dur:7},
+ {t:'Терминация',d:'УАА — стоп-кодон, оған сәйкес тРНҚ жоқ. Босату факторы қосылып, полипептид (Мет–Ала–Тир–Три) рибосомадан босайды, суббірліктер ажырайды.',dur:8}],
+ draw(c,W,H,s,p,t){
+  const cw=Math.min(78,W/7),x0=W/2-cw*2.5,y=H*.72;
+  // mRNA
+  c.strokeStyle='#9fe8d0';c.lineWidth=4;c.beginPath();c.moveTo(16,y);c.lineTo(W-16,y);c.stroke();
+  c.font='600 11px Inter';c.fillStyle='#a6c9c0';c.textAlign='left';c.fillText('5′',6,y-10);c.textAlign='right';c.fillText('3′',W-4,y-10);
+  MRNA.forEach((cd,i)=>{const x=x0+i*cw+cw/2;const act=i===s;c.fillStyle=act?'#f6c453':'#e9fbf5';c.font=`700 ${act?16:14}px Inter`;c.textAlign='center';c.fillText(cd,x,y+22);c.strokeStyle='rgba(255,255,255,.25)';c.lineWidth=1;c.beginPath();c.moveTo(x0+i*cw,y+8);c.lineTo(x0+i*cw,y+30);c.stroke()});
+  // ribosome position
+  const e=p<.5?0:Math.min(1,(p-.5)*2);const rx=x0+(s+.5)*cw+(s<4?e*0:0);
+  const g1=c.createRadialGradient(rx-20,y-70,10,rx,y-50,cw*1.4);g1.addColorStop(0,'#c8f7e6');g1.addColorStop(1,'#1f7a6a');
+  const g2=c.createRadialGradient(rx-10,y+10,5,rx,y+18,cw);g2.addColorStop(0,'#c8f7e6');g2.addColorStop(1,'#155d51');
+  c.globalAlpha=.55;c.fillStyle=g1;c.beginPath();c.ellipse(rx,y-50,cw*1.25,48,0,0,7);c.fill();c.fillStyle=g2;c.beginPath();c.ellipse(rx,y+16,cw*1.05,22,0,0,7);c.fill();c.globalAlpha=1;
+  label(c,'рибосома',rx+cw*1.15,y-96,'#9fe8d0',12);
+  // incoming tRNA
+  if(s<4){const ty=y-30-(1-Math.min(1,p*1.8))*H*.45;const tx=x0+s*cw+cw/2;
+   c.fillStyle='#ff6b8f';c.globalAlpha=.9;c.beginPath();c.moveTo(tx-16,ty);c.lineTo(tx+16,ty);c.lineTo(tx+10,ty-34);c.lineTo(tx-10,ty-34);c.closePath();c.fill();c.globalAlpha=1;
+   c.fillStyle='#fff';c.font='700 11px Inter';c.textAlign='center';c.fillText(ANTI[s],tx,ty-6);
+   if(s===0||p<.6)ball(c,tx,ty-46,13,'#f6c453');c.fillStyle='#03201a';c.font='700 10px Inter';if(s===0||p<.6)c.fillText(AA[s],tx,ty-42);}
+  // peptide chain
+  const n=s===4?4:s+(p>.6?1:0);
+  for(let i=0;i<n;i++){const px=rx-cw*.2-(n-1-i)*30+(s===4?-p*40:0),py=y-92-(n-1-i)*10-(s===4?p*30:0);if(i<n-1){c.strokeStyle='#f6c453';c.lineWidth=3;c.beginPath();c.moveTo(px,py);c.lineTo(px+30,py+10);c.stroke()}ball(c,px,py,13,'#f6c453');c.fillStyle='#03201a';c.font='700 10px Inter';c.textAlign='center';c.fillText(AA[i],px,py+4)}
+  if(s===4)label(c,'стоп-кодон: босату факторы',x0+4.5*cw,y-40,'#ff6b8f',12);
+ }});
+
+/* player */
+$('#vids').innerHTML=SCENES.map((sc,i)=>`<div class="vp" data-v="${i}"><h3>${i+1}. ${sc.title}</h3><div class="fig"><canvas></canvas></div><div class="cap"><b></b><p></p></div><div class="ctrl"><button class="btn sm" data-a="prev" aria-label="Алдыңғы кадр">‹</button><button class="btn sm pri" data-a="play">Ойнату</button><button class="btn sm" data-a="next" aria-label="Келесі кадр">›</button><div class="bar" role="progressbar" aria-label="Уақыт"><i></i></div><span class="ttl"></span></div></div>`).join('');
+const players=[...document.querySelectorAll('.vp')].map((el,i)=>{
+ const sc=SCENES[i],cv=el.querySelector('canvas');
+ const P={el,sc,cv,s:0,p:0,playing:false,last:0,vis:false};
+ const total=sc.steps.reduce((a,b)=>a+b.dur,0);
+ P.cap=()=>{el.querySelector('.cap b').textContent=(P.s+1)+'/'+sc.steps.length+' · '+sc.steps[P.s].t;el.querySelector('.cap p').textContent=sc.steps[P.s].d;const el2=sc.steps.slice(0,P.s).reduce((a,b)=>a+b.dur,0)+P.p*sc.steps[P.s].dur;el.querySelector('.bar i').style.width=(el2/total*100)+'%';el.querySelector('.ttl').textContent=Math.floor(el2)+' / '+total+' с';el.querySelector('[data-a=play]').textContent=P.playing?'Тоқтату':'Ойнату'};
+ P.frame=now=>{if(!P.vis)return;const[c,W,H]=fit(cv);c.clearRect(0,0,W,H);if(P.playing){const dt=Math.min(.1,(now-P.last)/1000);P.p+=dt/sc.steps[P.s].dur;if(P.p>=1){if(P.s<sc.steps.length-1){P.s++;P.p=0}else{P.p=1;P.playing=false}}}P.last=now;sc.draw(c,W,H,P.s,Math.min(1,P.p),now);P.cap()};
+ el.querySelector('.ctrl').addEventListener('click',e=>{const b=e.target.closest('[data-a]');const bar=e.target.closest('.bar');
+  if(bar){const r=bar.getBoundingClientRect();let x=(e.clientX-r.left)/r.width*total;for(let k=0;k<sc.steps.length;k++){if(x<=sc.steps[k].dur||k===sc.steps.length-1){P.s=k;P.p=Math.min(1,x/sc.steps[k].dur);break}x-=sc.steps[k].dur}return}
+  if(!b)return;const a=b.dataset.a;
+  if(a==='play'){if(!P.playing&&P.s===sc.steps.length-1&&P.p>=1){P.s=0;P.p=0}P.playing=!P.playing;P.last=performance.now()}
+  if(a==='next'){P.s=Math.min(sc.steps.length-1,P.s+1);P.p=RM?1:0}
+  if(a==='prev'){P.s=Math.max(0,P.s-1);P.p=RM?1:0}
+  P.cap()});
+ if(sc.drag){cv.style.touchAction='none';cv.style.cursor='grab';cv.addEventListener('pointerdown',e=>{drag={x:e.clientX,y:e.clientY};cv.setPointerCapture(e.pointerId)});cv.addEventListener('pointermove',e=>{if(!drag)return;cellRot.a+=(e.clientX-drag.x)*.01;cellRot.b=Math.max(-1.2,Math.min(1.2,cellRot.b+(e.clientY-drag.y)*.01));drag={x:e.clientX,y:e.clientY}});const up=()=>drag=null;cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up)}
+ P.p=.6;P.cap();return P});
+const vObs=new IntersectionObserver(es=>es.forEach(en=>{const P=players.find(x=>x.el===en.target);P.vis=en.isIntersecting}),{rootMargin:'100px'});
+players.forEach(P=>vObs.observe(P.el));
+const loop=now=>{players.forEach(P=>P.frame(now));requestAnimationFrame(loop)};requestAnimationFrame(loop);
+
+/* ---------- tools ---------- */
+const fmt=(x,d=2)=>{if(!isFinite(x))return'—';const r=Math.round(x*10**d)/10**d;return r.toLocaleString('ru-RU')};
+const TOOLS=[
+ {t:'Чаргафф ережесі',h:`<div class="row"><label>Белгілі нуклеотид<select id="c1n"><option value="A">Аденин (А)</option><option value="T">Тимин (Т)</option><option value="G">Гуанин (Г)</option><option value="C">Цитозин (Ц)</option></select></label><label>Үлесі, %<input id="c1p" type="number" value="32" min="0" max="50" step="any"></label><label>Жалпы нуклеотид саны<input id="c1N" type="number" value="2000" min="0" step="1"></label></div><div class="res" id="c1r"></div>`,
+  ex:['А = 32% болса, Т = 32% (А = Т).','Г + Ц = 100 − 2 × 32 = 36%, демек Г = Ц = 18%.','2 000 нуклеотидте: А = Т = 640, Г = Ц = 360.','Сутектік байланыстар: 2 × 640 + 3 × 360 = 2 360.'],
+  run(){const n=$('#c1n').value,p=+$('#c1p').value,N=+$('#c1N').value;if(p<0||p>50){$('#c1r').innerHTML='Үлес 0–50% аралығында болуы керек: бір нуклеотид 50%-дан аса алмайды.';return}const at=(n==='A'||n==='T')?p:50-p,gc=50-at;const nAT=N*at/100,nGC=N*gc/100;$('#c1r').innerHTML=`<span class="big">А = Т = ${fmt(at)}% · Г = Ц = ${fmt(gc)}%</span>Саны: А = Т = ${fmt(nAT,0)}, Г = Ц = ${fmt(nGC,0)}. Жұптар: ${fmt(N/2,0)}, ұзындығы ${fmt(N/2*.34)} нм. Сутектік байланыстар: ${fmt(2*nAT+3*nGC,0)}.`}},
+ {t:'Ген, иРНҚ және нәруыз',h:`<div class="row"><label>Аминқышқылдар саны<input id="c2a" type="number" value="200" min="1" step="1"></label><label>Стоп-кодонды қосу<select id="c2s"><option value="0">жоқ</option><option value="1">иә</option></select></label></div><div class="res" id="c2r"></div>`,
+  ex:['200 аминқышқылы → 200 кодон → иРНҚ-да 600 нуклеотид.','Ген қос тізбекті: 600 жұп = 1 200 нуклеотид.','Геннің ұзындығы: 600 × 0,34 = 204 нм.','Геннің массасы: 1 200 × 345 = 414 000 Да; нәруыздың массасы: 200 × 110 = 22 000 Да.'],
+  run(){const a=+$('#c2a').value,s=+$('#c2s').value;const nt=(a+s)*3;$('#c2r').innerHTML=`<span class="big">Ген: ${fmt(nt,0)} жұп · ${fmt(nt*.34)} нм</span>иРНҚ: ${fmt(nt,0)} нуклеотид (${a+s} кодон). Ген: ${fmt(nt*2,0)} нуклеотид, массасы ${fmt(nt*2*345,0)} Да. Нәруыз массасы: ${fmt(a*110,0)} Да. Ген нәруыздан ${fmt(nt*2*345/(a*110),1)} есе ауыр.`}},
+ {t:'Харди–Вайнберг заңы',h:`<div class="row"><label>Рецессивті фенотип (aa), %<input id="c3q" type="number" value="16" min="0" max="100" step="any"></label><label>Популяция саны<input id="c3N" type="number" value="1000" min="0" step="1"></label></div><div class="res" id="c3r"></div>`,
+  ex:['q² = 16% = 0,16 → q = √0,16 = 0,4.','p = 1 − 0,4 = 0,6.','AA = p² = 0,36 (36%); Aa = 2pq = 0,48 (48%); aa = 0,16.','1 000 дарақта: 360 AA, 480 Aa, 160 aa.'],
+  run(){const q2=+$('#c3q').value/100,N=+$('#c3N').value;if(q2<0||q2>1){$('#c3r').textContent='Үлес 0–100% аралығында болуы керек.';return}const q=Math.sqrt(q2),p=1-q;$('#c3r').innerHTML=`<span class="big">q = ${fmt(q,3)} · p = ${fmt(p,3)}</span>AA = ${fmt(p*p*100)}% (${fmt(p*p*N,0)}), Aa = ${fmt(2*p*q*100)}% (${fmt(2*p*q*N,0)}), aa = ${fmt(q2*100)}% (${fmt(q2*N,0)}).`}},
+ {t:'Митоз және мейоздағы n мен c',h:`<div class="row"><label>Диплоидты жиынтық (2n)<input id="c4n" type="number" value="46" min="2" step="2"></label><label>Кезең<select id="c4p">${['G₁ кезеңі|2|2','G₂ кезеңі|2|4','Митоз: профаза, метафаза|2|4','Митоз: анафаза|4|4','Митоз: телофаза (әр жасуша)|2|2','Мейоз I: профаза, метафаза|2|4','Мейоз I: анафаза|2|4','Мейоз I: телофаза (әр жасуша)|1|2','Мейоз II: профаза, метафаза|1|2','Мейоз II: анафаза|2|2','Мейоз II: телофаза (гамета)|1|1'].map(x=>{const[a,b,c2]=x.split('|');return`<option value="${b}|${c2}">${a}</option>`}).join('')}</select></label></div><div class="res" id="c4r"></div>`,
+  ex:['Адамда 2n = 46, демек n = 23.','Мейоз I метафазасы — 2n4c: 46 хромосома, 92 ДНҚ молекуласы (хроматид).','Мейоз II анафазасы — 2n2c: 46 хромосома, 46 ДНҚ.','Гамета — n c: 23 хромосома, 23 ДНҚ.'],
+  run(){const n=+$('#c4n').value/2;const[a,b]=$('#c4p').value.split('|').map(Number);$('#c4r').innerHTML=`<span class="big">${a}n${b}c → ${fmt(a*n,0)} хромосома, ${fmt(b*n,0)} ДНҚ</span>${b>a?'Әр хромосома екі хроматидтен тұрады.':'Әр хромосома бір хроматидтен тұрады.'}`}},
+ {t:'Экологиялық пирамида (10% ережесі)',h:`<div class="row"><label>Продуценттер энергиясы, кДж<input id="c5e" type="number" value="100000" min="0" step="any"></label><label>Өту коэффициенті, %<input id="c5k" type="number" value="10" min="1" max="100" step="any"></label></div><div class="res" id="c5r"></div>`,
+  ex:['Продуценттер: 100 000 кДж.','I реттік консумент: 10% → 10 000 кДж.','II реттік: 1 000 кДж; III реттік: 100 кДж.','Кері есеп: 1 кг жыртқыш үшін 10 кг шөпқорек және 100 кг өсімдік қажет.'],
+  run(){const e=+$('#c5e').value,k=+$('#c5k').value/100;const lv=['Продуценттер','I реттік консументтер','II реттік консументтер','III реттік консументтер','IV реттік консументтер'];const mx=e||1;$('#c5r').innerHTML=lv.map((l,i)=>{const v=e*k**i;return`<div style="display:grid;grid-template-columns:minmax(0,12em) minmax(0,1fr) auto;gap:8px;align-items:center;margin:4px 0"><span style="font-size:14px">${l}</span><span style="height:12px;border-radius:9px;background:rgba(255,255,255,.08)"><i style="display:block;height:100%;width:${Math.max(.6,v/mx*100)}%;border-radius:9px;background:linear-gradient(90deg,var(--em),var(--cy))"></i></span><b style="white-space:nowrap">${fmt(v)} кДж</b></div>`}).join('')}},
+ {t:'Микроскоп: ұлғайту және нақты өлшем',h:`<div class="row"><label>Окуляр, ×<input id="c6o" type="number" value="10" min="1" step="any"></label><label>Объектив, ×<input id="c6b" type="number" value="40" min="1" step="any"></label><label>Суреттегі өлшем, мм<input id="c6s" type="number" value="12" min="0" step="any"></label></div><div class="res" id="c6r"></div>`,
+  ex:['Жалпы ұлғайту = окуляр × объектив = 10 × 40 = 400.','Нақты өлшем = кескін өлшемі / ұлғайту = 12 мм / 400 = 0,03 мм.','0,03 мм = 30 мкм (1 мм = 1 000 мкм).'],
+  run(){const M=+$('#c6o').value*+$('#c6b').value,s=+$('#c6s').value;$('#c6r').innerHTML=`<span class="big">×${fmt(M,0)} · нақты өлшемі ${fmt(s/M*1000,1)} мкм</span>${fmt(s,2)} мм / ${fmt(M,0)} = ${fmt(s/M,4)} мм.`}}
+];
+$('#tools').innerHTML=TOOLS.map((x,i)=>`<div class="tool" data-t="${i}"><h3>${x.t}</h3>${x.h}<details class="ex"><summary>Толық шешілген үлгі есеп</summary><ol>${x.ex.map(s=>`<li>${s}</li>`).join('')}</ol></details></div>`).join('');
+TOOLS.forEach((x,i)=>{const el=document.querySelector(`.tool[data-t="${i}"]`);el.addEventListener('input',()=>x.run());el.addEventListener('change',()=>x.run());x.run()});
+}
+</script></body></html>
